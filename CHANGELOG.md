@@ -1,4 +1,7 @@
-##Version 0.0.14 - 2019-4-12
+## Version 0.0.15 - 2019-4-12
+* fixed errors founded by pub.dev
+
+## Version 0.0.14 - 2019-4-12
 * Added the possibility to chose the `mode` (`sync`, `block`, `async`) 
   when you are broadcasting a transaction.
 
