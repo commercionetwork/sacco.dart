@@ -35,8 +35,12 @@ class Wallet extends Equatable {
     @required this.publicKey,
   })  : assert(networkInfo != null),
         assert(privateKey != null),
-        assert(publicKey != null),
-        super([networkInfo, address, privateKey, publicKey]);
+        assert(publicKey != null);
+
+  @override
+  List<Object> get props {
+    return [networkInfo, address, privateKey, publicKey];
+  }
 
   /// Derives the private key from the given [mnemonic] using the specified
   /// [networkInfo].
@@ -122,7 +126,7 @@ class Wallet extends Equatable {
     final secureRandom = FortunaRandom();
     final random = Random.secure();
     final seed = List<int>.generate(32, (_) => random.nextInt(256));
-    secureRandom.seed(new KeyParameter(new Uint8List.fromList(seed)));
+    secureRandom.seed(KeyParameter(Uint8List.fromList(seed)));
     return secureRandom;
   }
 
