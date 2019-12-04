@@ -1,5 +1,8 @@
+## Version 0.1.0 - 2019-X-12
+* Change a default var in order to maintain backwards compatibility 
+
 ## Version 0.0.15 - 2019-4-12
-* fixed errors founded by pub.dev
+* Fixed errors founded by pub.dev
 
 ## Version 0.0.14 - 2019-4-12
 * Added the possibility to chose the `mode` (`sync`, `block`, `async`) 
