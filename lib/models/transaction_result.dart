@@ -1,7 +1,11 @@
 import 'package:equatable/equatable.dart';
+import 'package:json_annotation/json_annotation.dart';
 import 'package:meta/meta.dart';
 
+part 'transaction_result.g.dart';
+
 /// Represents the result that is returned when broadcasting a transaction.
+@JsonSerializable(explicitToJson: true)
 class TransactionResult extends Equatable {
   /// String representing the hash of the transaction.
   /// Note that this hash is always present, even if the transaction was
@@ -28,10 +32,16 @@ class TransactionResult extends Equatable {
   List<Object> get props {
     return [hash, success, error];
   }
+
+  factory TransactionResult.fromJson(Map<String, dynamic> json) =>
+      _$TransactionResultFromJson(json);
+
+  Map<String, dynamic> toJson() => _$TransactionResultToJson(this);
 }
 
 /// Contains the data related to an error that has occurred when
 /// broadcasting the transaction.
+@JsonSerializable(explicitToJson: true)
 class TransactionError extends Equatable {
   final int errorCode;
   final String errorMessage;
@@ -45,4 +55,9 @@ class TransactionError extends Equatable {
   List<Object> get props {
     return [errorCode, errorMessage];
   }
+
+  factory TransactionError.fromJson(Map<String, dynamic> json) =>
+      _$TransactionErrorFromJson(json);
+
+  Map<String, dynamic> toJson() => _$TransactionErrorToJson(this);
 }

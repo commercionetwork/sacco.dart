@@ -1,5 +1,6 @@
 ## Version 0.1.0 - 2019-X-12
-* Change a default var in order to maintain backwards compatibility 
+* Change a default var in order to maintain backwards compatibility;
+* Added json serialization/deserialization to transaction_result class.
 
 ## Version 0.0.15 - 2019-4-12
 * Fixed errors founded by pub.dev
