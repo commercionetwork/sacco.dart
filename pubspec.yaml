@@ -12,6 +12,8 @@ dependencies:
   hex: ^0.1.2
   http: ^0.12.0
   equatable: ^1.0.1
+  json_annotation: ^3.0.0
+
 
   # Crypto utils
   asn1lib: ^0.5.13
