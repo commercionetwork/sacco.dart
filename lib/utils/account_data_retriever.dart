@@ -30,14 +30,24 @@ class AccountDataRetrieval {
 
     final value = json["value"] as Map<String, dynamic>;
 
+    print('VALUE: $value');
+
     // Get the coins
     final coins = ((value["coins"] as List) ?? List())
         .map((coinMap) => StdCoin.fromJson(coinMap))
         .toList();
 
+    final accountNumber = value["account_number"] is String
+        ? value["account_number"]
+        : value["account_number"].toString();
+
+    final sequence = value["sequence"] is String
+        ? value["sequence"]
+        : value["sequence"].toString();
+
     return AccountData(
-      accountNumber: value["account_number"],
-      sequence: value["sequence"],
+      accountNumber: accountNumber,
+      sequence: sequence,
       coins: coins,
     );
   }
