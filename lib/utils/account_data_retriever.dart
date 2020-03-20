@@ -30,8 +30,6 @@ class AccountDataRetrieval {
 
     final value = json["value"] as Map<String, dynamic>;
 
-    print('VALUE: $value');
-
     // Get the coins
     final coins = ((value["coins"] as List) ?? List())
         .map((coinMap) => StdCoin.fromJson(coinMap))
