@@ -38,14 +38,22 @@ class TxSender {
 
   /// Converts the given [json] to a [TransactionResult] object.
   static TransactionResult _convertJson(Map<String, dynamic> json) {
-    final rawLog = jsonDecode(json["raw_log"] as String) as dynamic;
-    if (rawLog is Map<String, dynamic>) {
+    if (json["code"] != null) {
+      final rawLogAsString = json["raw_log"].toString();
+      String errorMessage = '';
+      if (rawLogAsString.startsWith('{') &&
+          rawLogAsString.contains('message')) {
+        errorMessage = jsonDecode(rawLogAsString)['message'];
+      } else {
+        errorMessage = rawLogAsString;
+      }
+
       return TransactionResult(
         hash: json["txhash"],
         success: false,
         error: TransactionError(
-          errorCode: rawLog["code"] as int,
-          errorMessage: rawLog["message"] as String,
+          errorCode: json["code"],
+          errorMessage: errorMessage,
         ),
       );
     }
