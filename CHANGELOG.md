@@ -1,17 +1,22 @@
-## Version 0.1.0 - 2019-X-12
+## Version 0.1.1 - 2020-03-27
+* Change `TransactionResult` to adapt to cosmos sdk 0.38 responses
+* Added derivation path index 
+
+## Version 0.1.0 - 2019-12-06
 * Change a default var in order to maintain backwards compatibility;
 * Added json serialization/deserialization to transaction_result class.
 
-## Version 0.0.15 - 2019-4-12
+## Version 0.0.15 - 2019-12-04
 * Fixed errors founded by pub.dev
 
-## Version 0.0.14 - 2019-4-12
+## Version 0.0.14 - 2019-12-04
 * Added the possibility to chose the `mode` (`sync`, `block`, `async`) 
   when you are broadcasting a transaction.
 
-## Version 0.0.13 - 2019-28-11
+## Version 0.0.13 - 2019-11-28
 * Fixed the wrong implementation of `TxSigner` which led to an 
   error in the chain when multiple messages were sent into a single transaction.
+
 ## Version 0.0.12 - 2019-11-11
 * Renamed `signData` to `sign` 
 * Changed how the signatures are created inside `sign`, now they are non-deterministic 

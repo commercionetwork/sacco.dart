@@ -21,13 +21,13 @@ You can find the latest release of sacco.dart on [pub](https://pub.dev/packages/
 ## Usage 
 ### Creating a wallet
 ```dart
-final derivationPath = "m/44'/118'/0'/0/0";
 final networkInfo = NetworkInfo(id: "", bech32Hrp: "cosmos", lcdUrl: "");
 
 final mnemonicString = "final random flame cinnamon grunt hazard easily mutual resist pond solution define knife female tongue crime atom jaguar alert library best forum lesson rigid";
 final mnemonic = mnemonicString.split(" ");
-final wallet = Wallet.derive(mnemonic, derivationPath, networkInfo);
+final wallet = Wallet.derive(mnemonic,  networkInfo);
 ```
+
 
 ### Creating a transaction
 ```dart
@@ -59,3 +59,14 @@ try {
   print("Error while sending the tx: $error");
 }
 ```
+
+### Creating a wallet with different index of derivation path
+```dart
+final derivationPath = "m/44'/118'/0'/0/1"; // Using index 1 instead 0
+final networkInfo = NetworkInfo(id: "", bech32Hrp: "cosmos", lcdUrl: "");
+
+final mnemonicString = "final random flame cinnamon grunt hazard easily mutual resist pond solution define knife female tongue crime atom jaguar alert library best forum lesson rigid";
+final mnemonic = mnemonicString.split(" ");
+final wallet = Wallet.derive(mnemonic,  networkInfo, derivationPath);
+```
+
