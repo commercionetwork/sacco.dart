@@ -66,7 +66,8 @@ void main() {
   test('Wallets are generated correctly using another derivation path', () {
     testVectors2.forEach((address, mnemonicString) {
       final mnemonic = mnemonicString.split(" ");
-      final wallet = Wallet.derive(mnemonic, networkInfo, lastDerivationPathSegment: '1');
+      final wallet =
+          Wallet.derive(mnemonic, networkInfo, lastDerivationPathSegment: '1');
       expect(wallet.bech32Address, address);
     });
   });
@@ -116,8 +117,16 @@ void main() {
     final wallet = Wallet.derive(mnemonic, info);
 
     final data = "Test";
-    final sig1 = HEX.encode(wallet.sign(utf8.encode(data)));
-    final sig2 = HEX.encode(wallet.sign(utf8.encode(data)));
+    final sig1 = HEX.encode(
+      wallet.sign(
+        utf8.encode(data),
+      ),
+    );
+    final sig2 = HEX.encode(
+      wallet.sign(
+        utf8.encode(data),
+      ),
+    );
     expect(sig1 == sig2, false);
   });
 }
