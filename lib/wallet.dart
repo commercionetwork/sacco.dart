@@ -20,7 +20,7 @@ import 'utils/tx_signer.dart';
 /// The associated [networkInfo] will be used when computing the [bech32Address]
 /// associated with the wallet.
 class Wallet extends Equatable {
-  static const DERIVATION_PATH = "m/44'/118'/0'/0/0";
+  static const BASE_DERIVATION_PATH = "m/44'/118'/0'/0";
 
   final Uint8List address;
   final Uint8List privateKey;
@@ -42,12 +42,15 @@ class Wallet extends Equatable {
     return [networkInfo, address, privateKey, publicKey];
   }
 
-  /// Derives the private key from the given [mnemonic] using the specified
-  /// [networkInfo].
+  /// Derives the private key from the given [mnemonic]
+  /// using the specified [networkInfo].
+  /// Optionally can define a different derivation path
+  /// setting [lastDerivationPathSegment].
   factory Wallet.derive(
     List<String> mnemonic,
-    NetworkInfo networkInfo,
-  ) {
+    NetworkInfo networkInfo, {
+    String lastDerivationPathSegment = "0",
+  }) {
     // Get the mnemonic as a string
     final mnemonicString = mnemonic.join(' ');
     if (!bip39.validateMnemonic(mnemonicString)) {
@@ -59,7 +62,9 @@ class Wallet extends Equatable {
     final root = bip32.BIP32.fromSeed(seed);
 
     // Get the node from the derivation path
-    final derivedNode = root.derivePath(DERIVATION_PATH);
+    final derivedNode =
+        root.derivePath("$BASE_DERIVATION_PATH/$lastDerivationPathSegment");
+    print("$BASE_DERIVATION_PATH/$lastDerivationPathSegment");
 
     // Get the curve data
     final secp256k1 = ECCurve_secp256k1();
