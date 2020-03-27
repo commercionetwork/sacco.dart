@@ -7,7 +7,6 @@ import 'package:test/test.dart';
 void main() {
   final networkInfo = NetworkInfo(bech32Hrp: "cosmos", lcdUrl: "");
 
-  // Generated using the default 'derivation path'
   final testVectors1 = {
     "cosmos1huydeevpz37sd9snkgul6070mstupukw00xkw9":
         "final random flame cinnamon grunt hazard easily mutual resist pond solution define knife female tongue crime atom jaguar alert library best forum lesson rigid",
@@ -31,7 +30,6 @@ void main() {
         "solve retire concert illegal garage recall skill power lyrics bunker vintage silver situate gadget talent settle left snow fire bubble bar robot swing senior"
   };
 
-  // Generated using a 'derivation path' that ends with 1
   final testVectors2 = {
     "cosmos1q6yq3vrv5f6l8sk8k6kgj5tkepvmtj4whu7h2k":
         "final random flame cinnamon grunt hazard easily mutual resist pond solution define knife female tongue crime atom jaguar alert library best forum lesson rigid",
