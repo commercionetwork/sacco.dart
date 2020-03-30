@@ -57,6 +57,11 @@ class Wallet extends Equatable {
       throw Exception("Invalid mnemonic " + mnemonicString);
     }
 
+    final _lastDerivationPathSegmentCheck =
+        int.tryParse(lastDerivationPathSegment) ?? -1;
+    if (_lastDerivationPathSegmentCheck < 0)
+      throw Exception("Invalid index format $lastDerivationPathSegment");
+
     // Convert the mnemonic to a BIP32 instance
     final seed = bip39.mnemonicToSeed(mnemonicString);
     final root = bip32.BIP32.fromSeed(seed);
@@ -64,7 +69,6 @@ class Wallet extends Equatable {
     // Get the node from the derivation path
     final derivedNode =
         root.derivePath("$BASE_DERIVATION_PATH/$lastDerivationPathSegment");
-    print("$BASE_DERIVATION_PATH/$lastDerivationPathSegment");
 
     // Get the curve data
     final secp256k1 = ECCurve_secp256k1();
