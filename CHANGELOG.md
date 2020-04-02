@@ -1,3 +1,6 @@
+## Version 0.1.2 - 2020-04-02
+* Added derivation path index check.
+
 ## Version 0.1.1 - 2020-03-27
 * Change `TransactionResult` to adapt to cosmos sdk 0.38 responses
 * Added derivation path index 
