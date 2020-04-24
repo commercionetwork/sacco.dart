@@ -55,6 +55,11 @@ void main() {
         "solve retire concert illegal garage recall skill power lyrics bunker vintage silver situate gadget talent settle left snow fire bubble bar robot swing senior"
   };
 
+  final testVectors3 = {
+    "cosmospub1addwnpepqd4ns87g34dhzaasjeuywu22y2ygmcy0n7kl65j96q5gzftx6zef27fcxur":
+        "final random flame cinnamon grunt hazard easily mutual resist pond solution define knife female tongue crime atom jaguar alert library best forum lesson rigid",
+  };
+
   test('Wallets are generated correctly', () {
     testVectors1.forEach((address, mnemonicString) {
       final mnemonic = mnemonicString.split(" ");
@@ -69,6 +74,14 @@ void main() {
       final wallet =
           Wallet.derive(mnemonic, networkInfo, lastDerivationPathSegment: '1');
       expect(wallet.bech32Address, address);
+    });
+  });
+
+  test('Wallets return correct bech32 public key', () {
+    testVectors3.forEach((key, mnemonicString) {
+      final mnemonic = mnemonicString.split(" ");
+      final wallet = Wallet.derive(mnemonic, networkInfo);
+      expect(wallet.bech32PublicKey, key);
     });
   });
 
