@@ -109,6 +109,14 @@ class Wallet extends Equatable {
   String get bech32Address =>
       Bech32Encoder.encode(networkInfo.bech32Hrp, address);
 
+  /// Returns the associated [publicKey] as a Bech32 string
+  String get bech32PublicKey {
+    final type = [235, 90, 233, 135, 33]; // "addwnpep"
+    final prefix = networkInfo.bech32Hrp + "pub";
+    final fullPublicKey = Uint8List.fromList(type + publicKey);
+    return Bech32Encoder.encode(prefix, fullPublicKey);
+  }
+
   /// Returns the associated [privateKey] as an [ECPrivateKey] instance.
   ECPrivateKey get _ecPrivateKey {
     final privateKeyInt = BigInt.parse(HEX.encode(privateKey), radix: 16);
