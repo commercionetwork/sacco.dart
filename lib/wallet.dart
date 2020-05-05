@@ -147,6 +147,20 @@ class Wallet extends Equatable {
     return secureRandom;
   }
 
+  /// Canonicalizes [signature].
+  /// This is necessary because if a message can be signed by (r, s), it can also be signed by (r, -s (mod N)).
+  /// More details at
+  /// https://github.com/web3j/web3j/blob/master/crypto/src/main/java/org/web3j/crypto/ECDSASignature.java#L27
+  static ECSignature _toCanonicalised(ECSignature signature) {
+    final ECDomainParameters _params = ECCurve_secp256k1();
+    final BigInt _halfCurveOrder = _params.n >> 1;
+    if (signature.s.compareTo(_halfCurveOrder) > 0) {
+      final canonicalisedS = _params.n - signature.s;
+      signature = ECSignature(signature.r, canonicalisedS);
+    }
+    return signature;
+  }
+
   /// Signs the given [data] using the private key associated with this wallet,
   /// returning the signature bytes ASN.1 DER encoded.
   Uint8List sign(Uint8List data) {
@@ -157,7 +171,8 @@ class Wallet extends Equatable {
             PrivateKeyParameter(_ecPrivateKey),
             _getSecureRandom(),
           ));
-    ECSignature ecSignature = ecdsaSigner.generateSignature(data);
+    ECSignature ecSignature =
+        _toCanonicalised(ecdsaSigner.generateSignature(data));
     final sigBytes = Uint8List.fromList(
       pcUtils.encodeBigInt(ecSignature.r) + pcUtils.encodeBigInt(ecSignature.s),
     );
