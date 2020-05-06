@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:hex/hex.dart';
 import 'package:sacco/sacco.dart';
 import 'package:test/test.dart';
 
@@ -130,12 +129,12 @@ void main() {
     final wallet = Wallet.derive(mnemonic, info);
 
     final data = "Test";
-    final sig1 = HEX.encode(
+    final sig1 = base64.encode(
       wallet.sign(
         utf8.encode(data),
       ),
     );
-    final sig2 = HEX.encode(
+    final sig2 = base64.encode(
       wallet.sign(
         utf8.encode(data),
       ),
