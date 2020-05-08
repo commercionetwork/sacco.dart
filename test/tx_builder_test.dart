@@ -20,7 +20,14 @@ void main() {
 
     final file = File('test_resources/SendStdTx.json');
 
-    final stdTx = TxBuilder.buildStdTx(stdMsgs: [message]);
+    const defaultGas = "200000";
+    const defaultDenom = "ucommercio";
+    const defaultAmount = "10000";
+    const fee = StdFee(
+        gas: defaultGas,
+        amount: [const StdCoin(denom: defaultDenom, amount: defaultAmount)]);
+
+    final stdTx = TxBuilder.buildStdTx(stdMsgs: [message], fee: fee);
     expect(stdTx.toString(), file.readAsStringSync());
   });
 }
