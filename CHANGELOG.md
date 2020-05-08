@@ -1,3 +1,8 @@
+## Version 0.1.3 - 2020-05-08
+* Fixed signature generation
+* Updated signature representation
+* Added bech32 pub key getter
+
 ## Version 0.1.2 - 2020-04-02
 * Added derivation path index check.
 
