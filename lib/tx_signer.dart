@@ -47,16 +47,22 @@ class TxSigner {
       chainId: nodeInfo.network,
       fee: fee.toJson(),
       memo: memo,
-      msgs: messages.map((msg) => msg.toJson()).toList(),
+      msgs: messages
+          .map(
+            (msg) => msg.toJson(),
+          )
+          .toList(),
     );
 
     // Convert the signature to a JSON and sort it
-    final jsonSignature = signature.toJson();
-    final sortedJson = MapSorter.sort(jsonSignature);
+    final sortedJson = MapSorter.sort(
+      signature.toJson(),
+    );
 
     // Encode the sorted JSON to a string and get the bytes
-    var jsonData = json.encode(sortedJson);
-    final bytes = utf8.encode(jsonData);
+    final bytes = utf8.encode(
+      json.encode(sortedJson),
+    );
 
     // Sign the data
     final signatureData = wallet.signTxData(bytes);

@@ -8,8 +8,8 @@ class TxBuilder {
   /// optional [memo] and [fee] specified.
   static StdTx buildStdTx({
     @required List<StdMsg> stdMsgs,
+    @required StdFee fee,
     String memo = "",
-    StdFee fee = const StdFee(gas: "200000", amount: []),
   }) {
     return StdTx(
       messages: stdMsgs,
