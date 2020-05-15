@@ -1,3 +1,6 @@
+## Version 0.1.4 - 2020-05-15
+* Updated dependencies  
+
 ## Version 0.1.3 - 2020-05-08
 * Fixed signature generation
 * Updated signature representation
