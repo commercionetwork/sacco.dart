@@ -1,9 +1,9 @@
 import 'package:meta/meta.dart';
 import 'package:sacco/models/transactions/export.dart';
 
-/// [MsgUndelegate] extends [StdMsg] and represents the message that should be
-/// used when undelegating tokens.
-class MsgUndelegate extends StdMsg {
+/// [MsgWithdrawDelegationReward] extends [StdMsg] and represents the message that should be
+/// used when withdraw tokens.
+class MsgWithdrawDelegationReward extends StdMsg {
   /// Bech32 address of the sender.
   final String delegator_address;
 
@@ -14,14 +14,14 @@ class MsgUndelegate extends StdMsg {
   final List<StdCoin> amount;
 
   /// Public constructor.
-  MsgUndelegate({
+  MsgWithdrawDelegationReward({
     @required this.delegator_address,
     @required this.validator_address,
     @required this.amount,
   })  : assert(delegator_address != null),
         assert(validator_address != null),
         assert(amount != null),
-        super(type: "cosmos-sdk/MsgUndelegate", value: Map());
+        super(type: "cosmos-sdk/MsgWithdrawDelegationReward", value: Map());
 
   @override
   Map<String, dynamic> get value => {
