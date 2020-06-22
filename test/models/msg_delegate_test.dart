@@ -13,7 +13,8 @@ void main() {
     expect(message.type, "cosmos-sdk/MsgDelegate");
     expect(message.value, {
       "delegator_address": "cosmos1c0qp24pq92xz5c96usknlxcmwls3pze95u50m9",
-      "validator_address": "cosmosvaloper1c0qp24pq92xz5c96usknlxcmwls3pze93gq6hk",
+      "validator_address":
+          "cosmosvaloper1c0qp24pq92xz5c96usknlxcmwls3pze93gq6hk",
       "amount": [
         {"amount": "1", "denom": "umuon"}
       ]
@@ -22,7 +23,8 @@ void main() {
       "type": "cosmos-sdk/MsgDelegate",
       "value": {
         "delegator_address": "cosmos1c0qp24pq92xz5c96usknlxcmwls3pze95u50m9",
-        "validator_address": "cosmosvaloper1c0qp24pq92xz5c96usknlxcmwls3pze93gq6hk",
+        "validator_address":
+            "cosmosvaloper1c0qp24pq92xz5c96usknlxcmwls3pze93gq6hk",
         "amount": [
           {"amount": "1", "denom": "umuon"}
         ]
