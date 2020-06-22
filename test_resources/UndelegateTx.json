@@ -1,0 +1,22 @@
+{
+  "type": "cosmos-sdk/StdTx",
+  "value": {
+    "msg": [{
+      "type": "cosmos-sdk/MsgUndelegate",
+      "value": {
+        "delegator_address": "cosmos1wappdlqgk2aeff3q2fsyllsug9gnzfjgh2na7p",
+        "validator_address": "cosmosvaloper1c0qp24pq92xz5c96usknlxcmwls3pze93gq6hk",
+        "amount": {
+          "denom": "umuon",
+          "amount": "1"
+        }
+      }
+    }],
+    "fee": {
+      "amount": [],
+      "gas": "200000"
+    },
+    "signatures": null,
+    "memo": ""
+  }
+}
