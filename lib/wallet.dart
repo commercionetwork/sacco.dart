@@ -174,7 +174,8 @@ class Wallet extends Equatable {
     ECSignature ecSignature =
         _toCanonicalised(ecdsaSigner.generateSignature(data));
     final sigBytes = Uint8List.fromList(
-      pc_utils.encodeBigInt(ecSignature.r) + pc_utils.encodeBigInt(ecSignature.s),
+      pc_utils.encodeBigInt(ecSignature.r) +
+          pc_utils.encodeBigInt(ecSignature.s),
     );
     return sigBytes;
   }
