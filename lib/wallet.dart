@@ -1,7 +1,7 @@
 import 'dart:math';
 import 'dart:typed_data';
 
-import 'package:bip32/bip32.dart' as bip32;
+import 'package:bip32_hdac/bip32_hdac.dart' as bip32;
 import 'package:bip39/bip39.dart' as bip39;
 import 'package:equatable/equatable.dart';
 import 'package:hex/hex.dart';

@@ -27,7 +27,10 @@ void main() {
     "cosmos1ase8zsfkqgvxw8yynfklq73u5utff0xxyzam58":
         "pipe apple lobster gadget front cloud reject whip village idle ready concert general scrub silver neutral crop oyster tackle enlist winner milk duty tomato",
     "cosmos1vwf547ntuvt69u46vzyzwwffmuxyhx9c7kx7st":
-        "solve retire concert illegal garage recall skill power lyrics bunker vintage silver situate gadget talent settle left snow fire bubble bar robot swing senior"
+        "solve retire concert illegal garage recall skill power lyrics bunker vintage silver situate gadget talent settle left snow fire bubble bar robot swing senior",
+    "cosmos10ymgqrvrxq2ux5hs22v09ucut8yet05n0lvv84":
+        "dish film auto bundle nest hospital arctic giraffe surface afford tribe toe swing flavor outdoor hand slice diesel awesome excess liar impulse trumpet rare"
+
   };
 
   // Generated using a 'derivation path' that ends with 1
@@ -51,7 +54,9 @@ void main() {
     "cosmos1rhk3la5zc0ntcehdvkf7f8x6ewjw02v2zuv2sy":
         "pipe apple lobster gadget front cloud reject whip village idle ready concert general scrub silver neutral crop oyster tackle enlist winner milk duty tomato",
     "cosmos17r94720wt2ymddvx9guettljljf59zyh97t4mf":
-        "solve retire concert illegal garage recall skill power lyrics bunker vintage silver situate gadget talent settle left snow fire bubble bar robot swing senior"
+        "solve retire concert illegal garage recall skill power lyrics bunker vintage silver situate gadget talent settle left snow fire bubble bar robot swing senior",
+    "cosmos1f4qmkpzape2njnnzt7j0xf07dfcv7f5tj6gx8r":
+        "dish film auto bundle nest hospital arctic giraffe surface afford tribe toe swing flavor outdoor hand slice diesel awesome excess liar impulse trumpet rare"
   };
 
   final testVectors3 = {
