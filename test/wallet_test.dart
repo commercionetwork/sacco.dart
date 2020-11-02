@@ -30,7 +30,6 @@ void main() {
         "solve retire concert illegal garage recall skill power lyrics bunker vintage silver situate gadget talent settle left snow fire bubble bar robot swing senior",
     "cosmos10ymgqrvrxq2ux5hs22v09ucut8yet05n0lvv84":
         "dish film auto bundle nest hospital arctic giraffe surface afford tribe toe swing flavor outdoor hand slice diesel awesome excess liar impulse trumpet rare"
-
   };
 
   // Generated using a 'derivation path' that ends with 1
