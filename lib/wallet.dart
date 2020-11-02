@@ -1,13 +1,13 @@
 import 'dart:math';
 import 'dart:typed_data';
 
-import 'package:bip32/bip32.dart' as bip32;
+import 'package:bip32_hdac/bip32_hdac.dart' as bip32;
 import 'package:bip39/bip39.dart' as bip39;
 import 'package:equatable/equatable.dart';
 import 'package:hex/hex.dart';
 import 'package:meta/meta.dart';
 import 'package:pointycastle/export.dart';
-import 'package:pointycastle/src/utils.dart' as pcUtils;
+import 'package:pointycastle/src/utils.dart' as pc_utils;
 import 'package:sacco/sacco.dart';
 import 'package:sacco/utils/bech32_encoder.dart';
 
@@ -60,7 +60,7 @@ class Wallet extends Equatable {
     final _lastDerivationPathSegmentCheck =
         int.tryParse(lastDerivationPathSegment) ?? -1;
     if (_lastDerivationPathSegmentCheck < 0)
-      throw Exception("Invalid index format $lastDerivationPathSegment");
+      throw Exception("Invalid index format ${lastDerivationPathSegment}");
 
     // Convert the mnemonic to a BIP32 instance
     final seed = bip39.mnemonicToSeed(mnemonicString);
@@ -174,7 +174,8 @@ class Wallet extends Equatable {
     ECSignature ecSignature =
         _toCanonicalised(ecdsaSigner.generateSignature(data));
     final sigBytes = Uint8List.fromList(
-      pcUtils.encodeBigInt(ecSignature.r) + pcUtils.encodeBigInt(ecSignature.s),
+      pc_utils.encodeBigInt(ecSignature.r) +
+          pc_utils.encodeBigInt(ecSignature.s),
     );
     return sigBytes;
   }

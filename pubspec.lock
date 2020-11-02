@@ -7,14 +7,14 @@ packages:
       name: _fe_analyzer_shared
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.0.0"
+    version: "7.0.0"
   analyzer:
     dependency: transitive
     description:
       name: analyzer
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.39.8"
+    version: "0.39.17"
   args:
     dependency: transitive
     description:
@@ -44,12 +44,19 @@ packages:
     source: hosted
     version: "0.1.2"
   bip32:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: bip32
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.5"
+  bip32_hdac:
+    dependency: "direct main"
+    description:
+      name: bip32_hdac
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.0-dev.1.1"
   bip39:
     dependency: "direct main"
     description:
@@ -162,6 +169,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.2"
+  cli_util:
+    dependency: transitive
+    description:
+      name: cli_util
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.2.0"
   code_builder:
     dependency: transitive
     description:
@@ -217,7 +231,7 @@ packages:
       name: equatable
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.1.1"
+    version: "1.2.5"
   fixnum:
     dependency: transitive
     description:
@@ -259,7 +273,7 @@ packages:
       name: http
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.12.1"
+    version: "0.12.2"
   http_multi_server:
     dependency: transitive
     description:
@@ -294,14 +308,14 @@ packages:
       name: json_annotation
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.0.1"
+    version: "3.1.0"
   json_serializable:
     dependency: "direct dev"
     description:
       name: json_serializable
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.3.0"
+    version: "3.5.0"
   logging:
     dependency: transitive
     description:
@@ -322,7 +336,7 @@ packages:
       name: meta
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.1.8"
+    version: "1.2.3"
   mime:
     dependency: transitive
     description:
@@ -455,7 +469,7 @@ packages:
       name: source_gen
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.9.5"
+    version: "0.9.7+1"
   source_map_stack_trace:
     dependency: transitive
     description:

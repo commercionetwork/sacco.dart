@@ -1,3 +1,6 @@
+## Version 0.1.5 - 2020-11-02
+* Fix bug derivation   
+
 ## Version 0.1.4 - 2020-05-15
 * Updated dependencies  
 
