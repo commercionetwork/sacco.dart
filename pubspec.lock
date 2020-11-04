@@ -28,7 +28,7 @@ packages:
       name: asn1lib
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.6.4"
+    version: "0.6.5"
   async:
     dependency: transitive
     description:
@@ -44,19 +44,12 @@ packages:
     source: hosted
     version: "0.1.2"
   bip32:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: bip32
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.5"
-  bip32_hdac:
-    dependency: "direct main"
-    description:
-      name: bip32_hdac
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.0-dev.1.1"
+    version: "1.0.7"
   bip39:
     dependency: "direct main"
     description:
@@ -77,7 +70,7 @@ packages:
       name: bitcoin_flutter
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.1.0"
+    version: "2.0.1"
   boolean_selector:
     dependency: transitive
     description:

@@ -1,7 +1,7 @@
 import 'dart:math';
 import 'dart:typed_data';
 
-import 'package:bip32_hdac/bip32_hdac.dart' as bip32;
+import 'package:bip32/bip32.dart' as bip32;
 import 'package:bip39/bip39.dart' as bip39;
 import 'package:equatable/equatable.dart';
 import 'package:hex/hex.dart';
@@ -59,8 +59,9 @@ class Wallet extends Equatable {
 
     final _lastDerivationPathSegmentCheck =
         int.tryParse(lastDerivationPathSegment) ?? -1;
-    if (_lastDerivationPathSegmentCheck < 0)
+    if (_lastDerivationPathSegmentCheck < 0) {
       throw Exception("Invalid index format ${lastDerivationPathSegment}");
+    }
 
     // Convert the mnemonic to a BIP32 instance
     final seed = bip39.mnemonicToSeed(mnemonicString);

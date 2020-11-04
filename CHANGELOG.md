@@ -1,3 +1,9 @@
+## Version 0.1.5 - 2020-11-04
+* Updated bip32 dependencies  
+
+## Version 0.1.5-rc.2 - 2020-11-02
+* Updated dependencies  
+
 ## Version 0.1.5-rc.1 - 2020-11-02
 * Fix bug derivation   
 

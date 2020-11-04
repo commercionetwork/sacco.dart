@@ -1,6 +1,6 @@
 name: sacco
 description: Pure Dart library allowing you to easily create an HD Wallet and create, sign and send Cosmos-SDK transactions.
-version: 0.1.5-rc.1
+version: 0.1.5
 homepage: https://github.com/commercionetwork/sacco.dart
 
 environment:
@@ -15,10 +15,10 @@ dependencies:
 
 
   # Crypto utils
-  asn1lib: ^0.6.4
-  bip32_hdac: ^1.0.0-dev.1.1
+  asn1lib: ^0.6.5
+  bip32: ^1.0.7
   bip39: ^1.0.3
-  bitcoin_flutter: ^1.1.0
+  bitcoin_flutter: ^2.0.1
   pointycastle: ^1.0.2
   bip_bech32: ^0.1.3
 
