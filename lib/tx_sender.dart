@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:meta/meta.dart';
 import 'package:sacco/sacco.dart';
 
 /// Allows to easily send a [StdTx] using the data contained inside the
@@ -17,7 +16,7 @@ class TxSender {
     String mode = "sync",
   }) async {
     // Get the endpoint
-    final apiUrl = "${wallet.networkInfo.lcdUrl}/txs";
+    final apiUrl = Uri.parse('${wallet.networkInfo.lcdUrl}/txs');
 
     // Build the request body
     final requestBody = {"tx": stdTx.toJson(), "mode": mode};

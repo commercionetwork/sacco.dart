@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:meta/meta.dart';
 import 'package:sacco/models/transactions/export.dart';
 
 class StdTx {
@@ -20,7 +19,7 @@ class StdTx {
         'msg': this.messages.map((message) => message.toJson()).toList(),
         'fee': this.fee.toJson(),
         'signatures':
-            this.signatures?.map((signature) => signature.toJson())?.toList(),
+            this.signatures?.map((signature) => signature.toJson()).toList(),
         'memo': this.memo,
       };
 

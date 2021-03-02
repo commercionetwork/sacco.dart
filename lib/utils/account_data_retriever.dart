@@ -11,8 +11,8 @@ class AccountDataRetrieval {
   /// Reads the account endpoint and retrieves data from it.
   static Future<AccountData> getAccountData(Wallet wallet) async {
     // Build the models.wallet api url
-    final endpoint =
-        "${wallet.networkInfo.lcdUrl}/auth/accounts/${wallet.bech32Address}";
+    final endpoint = Uri.parse(
+        '${wallet.networkInfo.lcdUrl}/auth/accounts/${wallet.bech32Address}');
 
     // Get the server response
     final response = await client.get(endpoint);

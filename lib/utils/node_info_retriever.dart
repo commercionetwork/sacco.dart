@@ -11,7 +11,7 @@ class NodeInfoRetrieval {
   /// Reads the node_info endpoint and retrieves data from it.
   static Future<NodeInfo> getNodeInfo(Wallet wallet) async {
     // Build the URL
-    final endpoint = "${wallet.networkInfo.lcdUrl}/node_info";
+    final endpoint = Uri.parse('${wallet.networkInfo.lcdUrl}/node_info');
 
     // Get the server response
     final response = await client.get(endpoint);
