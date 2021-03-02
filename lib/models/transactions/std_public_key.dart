@@ -5,10 +5,9 @@ class StdPublicKey {
   final String value;
 
   const StdPublicKey({
-    @required this.type,
-    @required this.value,
-  })  : assert(type != null),
-        assert(value != null);
+    required this.type,
+    required this.value,
+  });
 
   Map<String, dynamic> toJson() => {
         'type': type,

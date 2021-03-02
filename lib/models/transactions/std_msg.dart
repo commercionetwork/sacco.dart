@@ -11,10 +11,9 @@ class StdMsg {
 
   /// Public constructor.
   StdMsg({
-    @required this.type,
-    @required this.value,
-  })  : assert(type != null),
-        assert(value != null);
+    required this.type,
+    required this.value,
+  });
 
   /// Converts this instance of [StdMsg] into a map that can be later used
   /// to serialize it as a JSON object.

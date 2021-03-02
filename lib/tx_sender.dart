@@ -12,8 +12,8 @@ class TxSender {
   /// Returns the hash of the transaction once it has been send, or throws an
   /// exception if an error is risen during the sending.
   static Future<TransactionResult> broadcastStdTx({
-    @required Wallet wallet,
-    @required StdTx stdTx,
+    required Wallet wallet,
+    required StdTx stdTx,
     String mode = "sync",
   }) async {
     // Get the endpoint

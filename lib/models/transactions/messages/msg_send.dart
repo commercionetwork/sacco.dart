@@ -18,13 +18,10 @@ class MsgSend extends StdMsg {
 
   /// Public constructor.
   MsgSend({
-    @required this.fromAddress,
-    @required this.toAddress,
-    @required this.amount,
-  })  : assert(fromAddress != null),
-        assert(toAddress != null),
-        assert(amount != null),
-        super(type: "cosmos-sdk/MsgSend", value: Map());
+    required this.fromAddress,
+    required this.toAddress,
+    required this.amount,
+  }) : super(type: "cosmos-sdk/MsgSend", value: Map());
 
   @override
   Map<String, dynamic> get value => {

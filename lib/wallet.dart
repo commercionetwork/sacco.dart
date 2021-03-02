@@ -3,8 +3,8 @@ import 'dart:typed_data';
 
 import 'package:bip32/bip32.dart' as bip32;
 import 'package:bip39/bip39.dart' as bip39;
+import 'package:convert/convert.dart';
 import 'package:equatable/equatable.dart';
-import 'package:hex/hex.dart';
 import 'package:meta/meta.dart';
 import 'package:pointycastle/export.dart';
 import 'package:pointycastle/src/utils.dart' as pc_utils;
@@ -29,13 +29,11 @@ class Wallet extends Equatable {
   final NetworkInfo networkInfo;
 
   Wallet({
-    @required this.networkInfo,
-    @required this.address,
-    @required this.privateKey,
-    @required this.publicKey,
-  })  : assert(networkInfo != null),
-        assert(privateKey != null),
-        assert(publicKey != null);
+    required this.networkInfo,
+    required this.address,
+    required this.privateKey,
+    required this.publicKey,
+  });
 
   @override
   List<Object> get props {
@@ -76,7 +74,7 @@ class Wallet extends Equatable {
     final point = secp256k1.G;
 
     // Compute the curve point associated to the private key
-    final bigInt = BigInt.parse(HEX.encode(derivedNode.privateKey), radix: 16);
+    final bigInt = BigInt.parse(hex.encode(derivedNode.privateKey), radix: 16);
     final curvePoint = point * bigInt;
 
     // Get the public key
@@ -120,7 +118,7 @@ class Wallet extends Equatable {
 
   /// Returns the associated [privateKey] as an [ECPrivateKey] instance.
   ECPrivateKey get _ecPrivateKey {
-    final privateKeyInt = BigInt.parse(HEX.encode(privateKey), radix: 16);
+    final privateKeyInt = BigInt.parse(hex.encode(privateKey), radix: 16);
     return ECPrivateKey(privateKeyInt, ECCurve_secp256k1());
   }
 
@@ -134,8 +132,9 @@ class Wallet extends Equatable {
 
   /// Signs the given [data] using the associated [privateKey] and encodes
   /// the signature bytes to be included inside a transaction.
-  Uint8List signTxData(Uint8List data) {
-    final hash = SHA256Digest().process(data);
+  Uint8List signTxData(List<int> data) {
+    final uint8List = Uint8List.fromList(data);
+    final hash = SHA256Digest().process(uint8List);
     return TransactionSigner.deriveFrom(hash, _ecPrivateKey, ecPublicKey);
   }
 
@@ -173,7 +172,7 @@ class Wallet extends Equatable {
             _getSecureRandom(),
           ));
     ECSignature ecSignature =
-        _toCanonicalised(ecdsaSigner.generateSignature(data));
+        _toCanonicalised(ecdsaSigner.generateSignature(data) as ECSignature);
     final sigBytes = Uint8List.fromList(
       pc_utils.encodeBigInt(ecSignature.r) +
           pc_utils.encodeBigInt(ecSignature.s),
@@ -183,9 +182,13 @@ class Wallet extends Equatable {
 
   /// Creates a new [Wallet] instance from the given [json] and [privateKey].
   factory Wallet.fromJson(Map<String, dynamic> json, Uint8List privateKey) {
+    final address =
+        Uint8List.fromList(hex.decode(json["hex_address"] as String));
+    final publicKey =
+        Uint8List.fromList(hex.decode(json['public_key'] as String));
     return Wallet(
-      address: HEX.decode(json["hex_address"] as String),
-      publicKey: HEX.decode(json['public_key'] as String),
+      address: address,
+      publicKey: publicKey,
       privateKey: privateKey,
       networkInfo: NetworkInfo.fromJson(json['network_info']),
     );
@@ -194,9 +197,9 @@ class Wallet extends Equatable {
   /// Converts the current [Wallet] instance into a JSON object.
   /// Note that the private key is not serialized for safety reasons.
   Map<String, dynamic> toJson() => <String, dynamic>{
-        'hex_address': HEX.encode(this.address),
+        'hex_address': hex.encode(this.address),
         'bech32_address': this.bech32Address,
-        'public_key': HEX.encode(this.publicKey),
+        'public_key': hex.encode(this.publicKey),
         'network_info': this.networkInfo.toJson(),
       };
 }

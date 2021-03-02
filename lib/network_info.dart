@@ -9,19 +9,18 @@ class NetworkInfo extends Equatable {
   // Optional fields
   final String name; // Human readable chain name
   final String iconUrl; // Chain icon url
-  final String defaultTokenDenom;
+  final String? defaultTokenDenom;
 
   NetworkInfo({
-    @required this.bech32Hrp,
-    @required this.lcdUrl,
+    required this.bech32Hrp,
+    required this.lcdUrl,
     this.name = "",
     this.iconUrl = "",
     this.defaultTokenDenom,
-  })  : assert(bech32Hrp != null),
-        assert(lcdUrl != null);
+  });
 
   @override
-  List<Object> get props {
+  List<Object?> get props {
     return [bech32Hrp, lcdUrl, name, iconUrl, defaultTokenDenom];
   }
 

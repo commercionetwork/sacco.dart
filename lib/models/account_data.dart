@@ -1,4 +1,3 @@
-import 'package:meta/meta.dart';
 import 'package:sacco/models/transactions/export.dart';
 
 class AccountData {
@@ -7,12 +6,10 @@ class AccountData {
   final List<StdCoin> coins;
 
   AccountData({
-    @required this.accountNumber,
-    @required this.sequence,
-    @required this.coins,
-  })  : assert(accountNumber != null),
-        assert(sequence != null),
-        assert(coins != null);
+    required this.accountNumber,
+    required this.sequence,
+    required this.coins,
+  });
 
   @override
   String toString() {

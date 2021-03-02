@@ -6,9 +6,9 @@ class StdCoin {
   final String amount;
 
   const StdCoin({
-    @required this.denom,
-    @required this.amount,
-  })  : assert(denom != null),
+    required this.denom,
+    required this.amount,
+  })   : assert(denom != null),
         assert(amount != null);
 
   factory StdCoin.fromJson(Map<String, dynamic> json) => StdCoin(

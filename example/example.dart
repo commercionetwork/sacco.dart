@@ -51,6 +51,6 @@ void main() async {
   if (result.success) {
     print("Tx send successfully. Hash: ${result.hash}");
   } else {
-    print("Tx send error: ${result.error.errorMessage}");
+    print("Tx send error: ${result.error?.errorMessage}");
   }
 }

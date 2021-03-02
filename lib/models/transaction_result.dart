@@ -19,17 +19,16 @@ class TransactionResult extends Equatable {
   /// Please note that this field is going to be:
   /// - `null` if [success] is `true`.
   /// - a valid [TransactionError] if [success] is `false`
-  final TransactionError error;
+  final TransactionError? error;
 
   TransactionResult({
-    @required this.hash,
-    @required this.success,
+    required this.hash,
+    required this.success,
     this.error,
-  })  : assert(hash != null),
-        assert(success || error != null);
+  }) : assert(success || error != null);
 
   @override
-  List<Object> get props {
+  List<Object?> get props {
     return [hash, success, error];
   }
 
@@ -47,8 +46,8 @@ class TransactionError extends Equatable {
   final String errorMessage;
 
   TransactionError({
-    @required this.errorCode,
-    @required this.errorMessage,
+    required this.errorCode,
+    required this.errorMessage,
   });
 
   @override

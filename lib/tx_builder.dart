@@ -7,7 +7,7 @@ class TxBuilder {
   /// Builds a [StdTx] object containing the given [stdMsgs] and having the
   /// optional [memo] and [fee] specified.
   static StdTx buildStdTx({
-    @required List<StdMsg> stdMsgs,
+    required List<StdMsg> stdMsgs,
     String memo = "",
     StdFee fee = const StdFee(gas: "200000", amount: []),
   }) {

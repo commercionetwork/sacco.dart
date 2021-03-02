@@ -6,10 +6,9 @@ class StdSignature {
   final String value;
 
   const StdSignature({
-    @required this.value,
-    @required this.publicKey,
-  })  : assert(value != null),
-        assert(publicKey != null);
+    required this.value,
+    required this.publicKey,
+  });
 
   Map<String, dynamic> toJson() => {
         'pub_key': publicKey,

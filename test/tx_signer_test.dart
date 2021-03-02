@@ -55,13 +55,13 @@ void main() {
 
     // Sign the transaction
     final signedTx = await TxSigner.signStdTx(wallet: wallet, stdTx: tx);
-    expect(signedTx.signatures.length, 1);
+    expect(signedTx.signatures?.length, 1);
 
-    final signature = signedTx.signatures[0];
-    expect(signature.publicKey.type, "tendermint/PubKeySecp256k1");
-    expect(signature.publicKey.value,
+    final signature = signedTx.signatures?[0];
+    expect(signature?.publicKey.type, "tendermint/PubKeySecp256k1");
+    expect(signature?.publicKey.value,
         "ArMO2T5FNKkeF2aAZY012p/cpa9+PqKqw2GcQRPhAn3w");
-    expect(signature.value,
+    expect(signature?.value,
         "m2op4CCBa39fRZD91WiqtBLKbUQI+1OWsc1tJkpDg+8FYB4y51KahGn26MskVMpTJl5gToIC1pX26hLbW1Kxrg==");
   });
 }

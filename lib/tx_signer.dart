@@ -12,8 +12,8 @@ class TxSigner {
   /// given [wallet] and returns a new [StdTx] containing the signatures
   /// inside it.
   static Future<StdTx> signStdTx({
-    @required Wallet wallet,
-    @required StdTx stdTx,
+    required Wallet wallet,
+    required StdTx stdTx,
   }) async {
     // Get the account data and node info from the network
     final account = await AccountDataRetrieval.getAccountData(wallet);

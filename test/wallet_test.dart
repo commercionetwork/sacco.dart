@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:typed_data';
 
 import 'package:sacco/sacco.dart';
 import 'package:test/test.dart';
@@ -133,14 +134,15 @@ void main() {
     final wallet = Wallet.derive(mnemonic, info);
 
     final data = "Test";
+    final dataToSign = Uint8List.fromList(utf8.encode(data));
     final sig1 = base64.encode(
       wallet.sign(
-        utf8.encode(data),
+        dataToSign,
       ),
     );
     final sig2 = base64.encode(
       wallet.sign(
-        utf8.encode(data),
+        dataToSign,
       ),
     );
     expect(sig1 == sig2, false);

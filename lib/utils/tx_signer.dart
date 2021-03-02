@@ -1,11 +1,11 @@
 import 'dart:typed_data';
 
-import 'package:pointycastle/ecc/curves/secp256k1.dart';
-import 'package:pointycastle/ecc/api.dart';
-import 'package:pointycastle/signers/ecdsa_signer.dart';
-import 'package:pointycastle/macs/hmac.dart';
-import 'package:pointycastle/digests/sha256.dart';
 import 'package:pointycastle/api.dart';
+import 'package:pointycastle/digests/sha256.dart';
+import 'package:pointycastle/ecc/api.dart';
+import 'package:pointycastle/ecc/curves/secp256k1.dart';
+import 'package:pointycastle/macs/hmac.dart';
+import 'package:pointycastle/signers/ecdsa_signer.dart';
 
 /// Helper class used to sign a transaction.
 class TransactionSigner {
@@ -16,7 +16,7 @@ class TransactionSigner {
     radix: 16,
   );
 
-  static BigInt _bytesToInt(List<int> bytes) => _decodeBigInt(bytes);
+  static BigInt _bytesToInt(Uint8List bytes) => _decodeBigInt(bytes);
 
   static Uint8List _intToBytes(BigInt number) => _encodeBigInt(number);
 
@@ -39,7 +39,7 @@ class TransactionSigner {
     return result;
   }
 
-  static BigInt _recoverFromSignature(
+  static BigInt? _recoverFromSignature(
       int recId, ECSignature sig, Uint8List msg, ECDomainParameters params) {
     final n = params.n;
     final i = BigInt.from(recId ~/ 2);
@@ -103,7 +103,8 @@ class TransactionSigner {
     final ecdsaSigner = ECDSASigner(null, HMac(SHA256Digest(), 64))
       ..init(true, PrivateKeyParameter(privateKey));
 
-    ECSignature ecSignature = ecdsaSigner.generateSignature(message);
+    ECSignature ecSignature =
+        ecdsaSigner.generateSignature(message) as ECSignature;
 
     if (ecSignature.s.compareTo(_halfCurveOrder) > 0) {
       final canonicalS = _params.n - ecSignature.s;

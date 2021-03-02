@@ -9,16 +9,13 @@ class StdSignatureMessage {
   final List<Map<String, dynamic>> msgs;
 
   const StdSignatureMessage({
-    @required this.chainId,
-    @required this.accountNumber,
-    @required this.sequence,
-    @required this.memo,
-    @required this.fee,
-    @required this.msgs,
-  })  : assert(chainId != null),
-        assert(accountNumber != null),
-        assert(sequence != null),
-        assert(msgs != null);
+    required this.chainId,
+    required this.accountNumber,
+    required this.sequence,
+    required this.memo,
+    required this.fee,
+    required this.msgs,
+  });
 
   Map<String, dynamic> toJson() => {
         'chain_id': chainId,
