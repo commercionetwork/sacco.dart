@@ -5,7 +5,6 @@ import 'package:bip32/bip32.dart' as bip32;
 import 'package:bip39/bip39.dart' as bip39;
 import 'package:convert/convert.dart';
 import 'package:equatable/equatable.dart';
-import 'package:meta/meta.dart';
 import 'package:pointycastle/export.dart';
 import 'package:pointycastle/src/utils.dart' as pc_utils;
 import 'package:sacco/sacco.dart';
@@ -28,7 +27,7 @@ class Wallet extends Equatable {
 
   final NetworkInfo networkInfo;
 
-  Wallet({
+  const Wallet({
     required this.networkInfo,
     required this.address,
     required this.privateKey,
@@ -47,18 +46,18 @@ class Wallet extends Equatable {
   factory Wallet.derive(
     List<String> mnemonic,
     NetworkInfo networkInfo, {
-    String lastDerivationPathSegment = "0",
+    String lastDerivationPathSegment = '0',
   }) {
     // Get the mnemonic as a string
     final mnemonicString = mnemonic.join(' ');
     if (!bip39.validateMnemonic(mnemonicString)) {
-      throw Exception("Invalid mnemonic " + mnemonicString);
+      throw Exception('Invalid mnemonic ' + mnemonicString);
     }
 
     final _lastDerivationPathSegmentCheck =
         int.tryParse(lastDerivationPathSegment) ?? -1;
     if (_lastDerivationPathSegmentCheck < 0) {
-      throw Exception("Invalid index format ${lastDerivationPathSegment}");
+      throw Exception('Invalid index format $lastDerivationPathSegment');
     }
 
     // Convert the mnemonic to a BIP32 instance
@@ -67,7 +66,7 @@ class Wallet extends Equatable {
 
     // Get the node from the derivation path
     final derivedNode =
-        root.derivePath("$BASE_DERIVATION_PATH/$lastDerivationPathSegment");
+        root.derivePath('$BASE_DERIVATION_PATH/$lastDerivationPathSegment');
 
     // Get the curve data
     final secp256k1 = ECCurve_secp256k1();
@@ -111,7 +110,7 @@ class Wallet extends Equatable {
   /// Returns the associated [publicKey] as a Bech32 string
   String get bech32PublicKey {
     final type = [235, 90, 233, 135, 33]; // "addwnpep"
-    final prefix = networkInfo.bech32Hrp + "pub";
+    final prefix = networkInfo.bech32Hrp + 'pub';
     final fullPublicKey = Uint8List.fromList(type + publicKey);
     return Bech32Encoder.encode(prefix, fullPublicKey);
   }
@@ -153,7 +152,7 @@ class Wallet extends Equatable {
   /// https://github.com/web3j/web3j/blob/master/crypto/src/main/java/org/web3j/crypto/ECDSASignature.java#L27
   static ECSignature _toCanonicalised(ECSignature signature) {
     final ECDomainParameters _params = ECCurve_secp256k1();
-    final BigInt _halfCurveOrder = _params.n >> 1;
+    final _halfCurveOrder = _params.n >> 1;
     if (signature.s.compareTo(_halfCurveOrder) > 0) {
       final canonicalisedS = _params.n - signature.s;
       signature = ECSignature(signature.r, canonicalisedS);
@@ -164,14 +163,14 @@ class Wallet extends Equatable {
   /// Signs the given [data] using the private key associated with this wallet,
   /// returning the signature bytes ASN.1 DER encoded.
   Uint8List sign(Uint8List data) {
-    final ecdsaSigner = Signer("SHA-256/ECDSA")
+    final ecdsaSigner = Signer('SHA-256/ECDSA')
       ..init(
           true,
           ParametersWithRandom(
             PrivateKeyParameter(_ecPrivateKey),
             _getSecureRandom(),
           ));
-    ECSignature ecSignature =
+    final ecSignature =
         _toCanonicalised(ecdsaSigner.generateSignature(data) as ECSignature);
     final sigBytes = Uint8List.fromList(
       pc_utils.encodeBigInt(ecSignature.r) +
@@ -183,7 +182,7 @@ class Wallet extends Equatable {
   /// Creates a new [Wallet] instance from the given [json] and [privateKey].
   factory Wallet.fromJson(Map<String, dynamic> json, Uint8List privateKey) {
     final address =
-        Uint8List.fromList(hex.decode(json["hex_address"] as String));
+        Uint8List.fromList(hex.decode(json['hex_address'] as String));
     final publicKey =
         Uint8List.fromList(hex.decode(json['public_key'] as String));
     return Wallet(
@@ -197,9 +196,9 @@ class Wallet extends Equatable {
   /// Converts the current [Wallet] instance into a JSON object.
   /// Note that the private key is not serialized for safety reasons.
   Map<String, dynamic> toJson() => <String, dynamic>{
-        'hex_address': hex.encode(this.address),
-        'bech32_address': this.bech32Address,
-        'public_key': hex.encode(this.publicKey),
-        'network_info': this.networkInfo.toJson(),
+        'hex_address': hex.encode(address),
+        'bech32_address': bech32Address,
+        'public_key': hex.encode(publicKey),
+        'network_info': networkInfo.toJson(),
       };
 }

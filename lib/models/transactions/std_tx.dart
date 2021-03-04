@@ -16,16 +16,16 @@ class StdTx {
   });
 
   Map<String, dynamic> toJson() => {
-        'msg': this.messages.map((message) => message.toJson()).toList(),
-        'fee': this.fee.toJson(),
+        'msg': messages.map((message) => message.toJson()).toList(),
+        'fee': fee.toJson(),
         'signatures':
-            this.signatures?.map((signature) => signature.toJson()).toList(),
-        'memo': this.memo,
+            signatures?.map((signature) => signature.toJson()).toList(),
+        'memo': memo,
       };
 
   @override
   String toString() {
-    final tx = {"type": "cosmos-sdk/StdTx", "value": toJson()};
+    final tx = {'type': 'cosmos-sdk/StdTx', 'value': toJson()};
     return jsonEncode(tx);
   }
 }

@@ -13,20 +13,20 @@ class TxSender {
   static Future<TransactionResult> broadcastStdTx({
     required Wallet wallet,
     required StdTx stdTx,
-    String mode = "sync",
+    String mode = 'sync',
   }) async {
     // Get the endpoint
     final apiUrl = Uri.parse('${wallet.networkInfo.lcdUrl}/txs');
 
     // Build the request body
-    final requestBody = {"tx": stdTx.toJson(), "mode": mode};
+    final requestBody = {'tx': stdTx.toJson(), 'mode': mode};
     final requestBodyJson = jsonEncode(requestBody);
 
     // Get the response
     final response = await http.Client().post(apiUrl, body: requestBodyJson);
     if (response.statusCode != 200) {
       throw Exception(
-        "Expected status code 200 but got ${response.statusCode} - ${response.body}",
+        'Expected status code 200 but got ${response.statusCode} - ${response.body}',
       );
     }
 
@@ -37,9 +37,9 @@ class TxSender {
 
   /// Converts the given [json] to a [TransactionResult] object.
   static TransactionResult _convertJson(Map<String, dynamic> json) {
-    if (json["code"] != null) {
-      final rawLogAsString = json["raw_log"].toString();
-      String errorMessage = '';
+    if (json['code'] != null) {
+      final rawLogAsString = json['raw_log'].toString();
+      var errorMessage = '';
       if (rawLogAsString.startsWith('{') &&
           rawLogAsString.contains('message')) {
         errorMessage = jsonDecode(rawLogAsString)['message'];
@@ -48,15 +48,15 @@ class TxSender {
       }
 
       return TransactionResult(
-        hash: json["txhash"],
+        hash: json['txhash'],
         success: false,
         error: TransactionError(
-          errorCode: json["code"],
+          errorCode: json['code'],
           errorMessage: errorMessage,
         ),
       );
     }
 
-    return TransactionResult(hash: json["txhash"], success: true, error: null);
+    return TransactionResult(hash: json['txhash'], success: true, error: null);
   }
 }

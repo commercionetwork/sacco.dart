@@ -13,6 +13,6 @@ class AccountData {
 
   @override
   String toString() {
-    return "number: $accountNumber, sequence: $sequence, coins: $coins";
+    return 'number: $accountNumber, sequence: $sequence, coins: $coins';
   }
 }

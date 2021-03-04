@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-import 'package:meta/meta.dart';
 
 /// Contains the information of a generic Cosmos-based network.
 class NetworkInfo extends Equatable {
@@ -11,11 +10,11 @@ class NetworkInfo extends Equatable {
   final String iconUrl; // Chain icon url
   final String? defaultTokenDenom;
 
-  NetworkInfo({
+  const NetworkInfo({
     required this.bech32Hrp,
     required this.lcdUrl,
-    this.name = "",
-    this.iconUrl = "",
+    this.name = '',
+    this.iconUrl = '',
     this.defaultTokenDenom,
   });
 
@@ -35,10 +34,10 @@ class NetworkInfo extends Equatable {
   }
 
   Map<String, dynamic> toJson() => <String, dynamic>{
-        'bech32_hrp': this.bech32Hrp,
-        'lcd_url': this.lcdUrl,
-        'name': this.name,
-        'icon_url': this.iconUrl,
-        'default_token_denom': this.defaultTokenDenom,
+        'bech32_hrp': bech32Hrp,
+        'lcd_url': lcdUrl,
+        'name': name,
+        'icon_url': iconUrl,
+        'default_token_denom': defaultTokenDenom,
       };
 }

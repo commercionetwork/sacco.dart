@@ -1,5 +1,3 @@
-import 'package:meta/meta.dart';
-
 class StdSignatureMessage {
   final String chainId;
   final String accountNumber;

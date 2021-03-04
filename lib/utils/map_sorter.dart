@@ -4,9 +4,9 @@ import 'dart:collection';
 class MapSorter {
   /// Takes the given [value] and orders each one of the contained
   /// items that are present inside it by calling [_encodeValue].
-  static List<dynamic> _encodeList(dynamic value) {
+  static List<dynamic> _encodeList(value) {
     final result = <dynamic>[];
-    for (var item in value.cast<dynamic>()) {
+    for (final item in value.cast<dynamic>()) {
       result.add(_encodeValue(item));
     }
     return result;
@@ -16,7 +16,7 @@ class MapSorter {
   /// * If it is a map, [sort] is called.
   /// * If it is a list, [_encodeList] is called.
   /// * Otherwise, the same value is returned.
-  static dynamic _encodeValue(dynamic value) {
+  static dynamic _encodeValue(value) {
     if (value is Map<String, dynamic>) {
       return sort(value);
     } else if (value is List) {

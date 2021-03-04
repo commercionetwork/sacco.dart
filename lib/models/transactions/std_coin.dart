@@ -1,15 +1,9 @@
-import 'package:meta/meta.dart';
-
 /// Contains the data of a specific coin
 class StdCoin {
   final String denom;
   final String amount;
 
-  const StdCoin({
-    required this.denom,
-    required this.amount,
-  })   : assert(denom != null),
-        assert(amount != null);
+  const StdCoin({required this.denom, required this.amount});
 
   factory StdCoin.fromJson(Map<String, dynamic> json) => StdCoin(
         denom: json['denom'] as String,
@@ -17,7 +11,7 @@ class StdCoin {
       );
 
   Map<String, dynamic> toJson() => {
-        'denom': this.denom,
-        'amount': this.amount,
+        'denom': denom,
+        'amount': amount,
       };
 }

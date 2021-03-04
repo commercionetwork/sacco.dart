@@ -1,5 +1,3 @@
-import 'package:meta/meta.dart';
-
 class StdPublicKey {
   final String type;
   final String value;

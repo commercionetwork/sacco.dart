@@ -1,6 +1,5 @@
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:meta/meta.dart';
 
 part 'transaction_result.g.dart';
 
@@ -21,7 +20,7 @@ class TransactionResult extends Equatable {
   /// - a valid [TransactionError] if [success] is `false`
   final TransactionError? error;
 
-  TransactionResult({
+  const TransactionResult({
     required this.hash,
     required this.success,
     this.error,
@@ -45,7 +44,7 @@ class TransactionError extends Equatable {
   final int errorCode;
   final String errorMessage;
 
-  TransactionError({
+  const TransactionError({
     required this.errorCode,
     required this.errorMessage,
   });

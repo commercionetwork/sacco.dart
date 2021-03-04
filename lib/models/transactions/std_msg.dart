@@ -1,5 +1,3 @@
-import 'package:meta/meta.dart';
-
 /// [StdMsg] represents a standard message that can be included inside
 /// a transaction.
 class StdMsg {
@@ -10,10 +8,7 @@ class StdMsg {
   Map<String, dynamic> value;
 
   /// Public constructor.
-  StdMsg({
-    required this.type,
-    required this.value,
-  });
+  StdMsg({required this.type, required this.value});
 
   /// Converts this instance of [StdMsg] into a map that can be later used
   /// to serialize it as a JSON object.
