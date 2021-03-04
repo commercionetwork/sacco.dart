@@ -6,38 +6,15 @@ import 'package:pointycastle/ecc/api.dart';
 import 'package:pointycastle/ecc/curves/secp256k1.dart';
 import 'package:pointycastle/macs/hmac.dart';
 import 'package:pointycastle/signers/ecdsa_signer.dart';
+import 'package:pointycastle/src/utils.dart' as ptutils;
 
 /// Helper class used to sign a transaction.
 class TransactionSigner {
   // Constants
-  static final BigInt _byteMask = BigInt.from(0xff);
   static final BigInt _prime = BigInt.parse(
     'fffffffffffffffffffffffffffffffffffffffffffffffffffffffefffffc2f',
     radix: 16,
   );
-
-  static BigInt _bytesToInt(Uint8List bytes) => _decodeBigInt(bytes);
-
-  static Uint8List _intToBytes(BigInt number) => _encodeBigInt(number);
-
-  static Uint8List _encodeBigInt(BigInt number) {
-    final size = (number.bitLength + 7) >> 3;
-    final result = Uint8List(size);
-    var num = number;
-    for (var i = 0; i < size; i++) {
-      result[size - i - 1] = (num & _byteMask).toInt();
-      num = num >> 8;
-    }
-    return result;
-  }
-
-  static BigInt _decodeBigInt(Uint8List bytes) {
-    var result = BigInt.from(0);
-    for (var i = 0; i < bytes.length; i++) {
-      result += BigInt.from(bytes[bytes.length - i - 1]) << (8 * i);
-    }
-    return result;
-  }
 
   static BigInt? _recoverFromSignature(
       int recId, ECSignature sig, Uint8List msg, ECDomainParameters params) {
@@ -54,7 +31,7 @@ class TransactionSigner {
       return null;
     }
 
-    final e = _bytesToInt(msg);
+    final e = ptutils.decodeBigInt(msg);
 
     final eInv = (BigInt.zero - e) % n;
     final rInv = sig.r.modInverse(n);
@@ -64,12 +41,12 @@ class TransactionSigner {
     final q = (params.G * eInvrInv) + (R * srInv);
 
     final bytes = q.getEncoded(false);
-    return _bytesToInt(bytes.sublist(1));
+    return ptutils.decodeBigInt(bytes.sublist(1));
   }
 
   static ECPoint _decompressKey(BigInt xBN, bool yBit, ECCurve c) {
     List<int> x9IntegerToBytes(BigInt s, int qLength) {
-      final bytes = _intToBytes(s);
+      final bytes = ptutils.encodeBigInt(s);
 
       if (qLength < bytes.length) {
         return bytes.sublist(0, bytes.length - qLength);
@@ -103,8 +80,7 @@ class TransactionSigner {
     final ecdsaSigner = ECDSASigner(null, HMac(SHA256Digest(), 64))
       ..init(true, PrivateKeyParameter(privateKey));
 
-    ECSignature ecSignature =
-        ecdsaSigner.generateSignature(message) as ECSignature;
+    var ecSignature = ecdsaSigner.generateSignature(message) as ECSignature;
 
     if (ecSignature.s.compareTo(_halfCurveOrder) > 0) {
       final canonicalS = _params.n - ecSignature.s;
@@ -114,7 +90,7 @@ class TransactionSigner {
     final publicKeyBytes =
         Uint8List.view(publicKey.Q.getEncoded(false).buffer, 1);
 
-    final publicKeyBigInt = _bytesToInt(publicKeyBytes);
+    final publicKeyBigInt = ptutils.decodeBigInt(publicKeyBytes);
 
     var recoveryID = -1;
     for (var i = 0; i < 4; i++) {
@@ -130,7 +106,7 @@ class TransactionSigner {
     }
 
     return Uint8List.fromList(
-      _intToBytes(ecSignature.r) + _intToBytes(ecSignature.s),
+      ptutils.encodeBigInt(ecSignature.r) + ptutils.encodeBigInt(ecSignature.s),
     );
   }
 }
