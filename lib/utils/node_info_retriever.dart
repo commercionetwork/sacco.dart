@@ -6,10 +6,13 @@ import 'package:sacco/sacco.dart';
 /// Allows to easily retrieve the data of an account based on the information
 /// contained inside a given [Wallet].
 class NodeInfoRetrieval {
-  static var client = http.Client();
-
   /// Reads the node_info endpoint and retrieves data from it.
-  static Future<NodeInfo> getNodeInfo(Wallet wallet) async {
+  static Future<NodeInfo> getNodeInfo(
+    Wallet wallet, {
+    http.Client? client,
+  }) async {
+    client ??= http.Client();
+
     // Build the URL
     final endpoint = Uri.parse('${wallet.networkInfo.lcdUrl}/node_info');
 
@@ -17,16 +20,16 @@ class NodeInfoRetrieval {
     final response = await client.get(endpoint);
     if (response.statusCode != 200) {
       throw Exception(
-        "Expected status code 200 but got ${response.statusCode} - ${response.body}",
+        'Expected status code 200 but got ${response.statusCode} - ${response.body}',
       );
     }
 
     // Parse the data
-    var json = jsonDecode(response.body) as Map<String, dynamic>;
-    final nodeInfo = json["node_info"] as Map<String, dynamic>;
+    final json = jsonDecode(response.body) as Map<String, dynamic>;
+    final nodeInfo = json['node_info'] as Map<String, dynamic>;
 
     return NodeInfo(
-      network: nodeInfo["network"] as String,
+      network: nodeInfo['network'] as String,
     );
   }
 }
