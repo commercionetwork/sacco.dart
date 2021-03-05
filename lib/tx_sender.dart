@@ -14,7 +14,10 @@ class TxSender {
     required Wallet wallet,
     required StdTx stdTx,
     String mode = 'sync',
+    http.Client? client,
   }) async {
+    client ??= http.Client();
+
     // Get the endpoint
     final apiUrl = Uri.parse('${wallet.networkInfo.lcdUrl}/txs');
 
@@ -23,7 +26,7 @@ class TxSender {
     final requestBodyJson = jsonEncode(requestBody);
 
     // Get the response
-    final response = await http.Client().post(apiUrl, body: requestBodyJson);
+    final response = await client.post(apiUrl, body: requestBodyJson);
     if (response.statusCode != 200) {
       throw Exception(
         'Expected status code 200 but got ${response.statusCode} - ${response.body}',
