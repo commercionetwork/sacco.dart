@@ -2,13 +2,13 @@ import 'dart:math';
 import 'dart:typed_data';
 
 import 'package:bip32/bip32.dart' as bip32;
-import 'package:bip39/bip39.dart' as bip39;
 import 'package:convert/convert.dart';
 import 'package:equatable/equatable.dart';
 import 'package:pointycastle/export.dart';
 import 'package:pointycastle/src/utils.dart' as pc_utils;
 import 'package:sacco/sacco.dart';
 import 'package:sacco/utils/bech32_encoder.dart';
+import 'package:sacco/utils/bip39.dart';
 
 import 'utils/tx_signer.dart';
 
@@ -50,7 +50,7 @@ class Wallet extends Equatable {
   }) {
     // Get the mnemonic as a string
     final mnemonicString = mnemonic.join(' ');
-    if (!bip39.validateMnemonic(mnemonicString)) {
+    if (!Bip39.validateMnemonic(mnemonicString)) {
       throw Exception('Invalid mnemonic ' + mnemonicString);
     }
 
@@ -61,7 +61,7 @@ class Wallet extends Equatable {
     }
 
     // Convert the mnemonic to a BIP32 instance
-    final seed = bip39.mnemonicToSeed(mnemonicString);
+    final seed = Bip39.mnemonicToSeed(mnemonicString);
     final root = bip32.BIP32.fromSeed(seed);
 
     // Get the node from the derivation path
