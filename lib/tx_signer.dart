@@ -16,6 +16,8 @@ class TxSigner {
     required StdTx stdTx,
     http.Client? client,
   }) async {
+    client ??= http.Client();
+
     // Get the account data and node info from the network
     final account = await AccountDataRetrieval.getAccountData(
       wallet,
@@ -28,7 +30,13 @@ class TxSigner {
 
     // Sign all messages
     final signatures = _getStdSignature(
-        wallet, account, nodeInfo, stdTx.messages, stdTx.fee, stdTx.memo);
+      wallet,
+      account,
+      nodeInfo,
+      stdTx.messages,
+      stdTx.fee,
+      stdTx.memo,
+    );
 
     // Assemble the transaction
     return StdTx(
@@ -62,7 +70,7 @@ class TxSigner {
     final sortedJson = MapSorter.sort(jsonSignature);
 
     // Encode the sorted JSON to a string and get the bytes
-    final jsonData = json.encode(sortedJson);
+    final jsonData = jsonEncode(sortedJson);
     final bytes = utf8.encode(jsonData);
 
     // Sign the data
