@@ -1,10 +1,6 @@
 import 'package:equatable/equatable.dart';
-import 'package:json_annotation/json_annotation.dart';
-
-part 'transaction_result.g.dart';
 
 /// Represents the result that is returned when broadcasting a transaction.
-@JsonSerializable(explicitToJson: true)
 class TransactionResult extends Equatable {
   /// String representing the hash of the transaction.
   /// Note that this hash is always present, even if the transaction was
@@ -27,19 +23,26 @@ class TransactionResult extends Equatable {
   }) : assert(success || error != null);
 
   @override
-  List<Object?> get props {
-    return [hash, success, error];
-  }
+  List<Object?> get props => [hash, success, error];
 
   factory TransactionResult.fromJson(Map<String, dynamic> json) =>
-      _$TransactionResultFromJson(json);
+      TransactionResult(
+        hash: json['hash'] as String,
+        success: json['success'] as bool,
+        error: json['error'] == null
+            ? null
+            : TransactionError.fromJson(json['error']),
+      );
 
-  Map<String, dynamic> toJson() => _$TransactionResultToJson(this);
+  Map<String, dynamic> toJson() => {
+        'hash': hash,
+        'success': success,
+        'error': error?.toJson(),
+      };
 }
 
 /// Contains the data related to an error that has occurred when
 /// broadcasting the transaction.
-@JsonSerializable(explicitToJson: true)
 class TransactionError extends Equatable {
   final int errorCode;
   final String errorMessage;
@@ -50,12 +53,16 @@ class TransactionError extends Equatable {
   });
 
   @override
-  List<Object> get props {
-    return [errorCode, errorMessage];
-  }
+  List<Object?> get props => [errorCode, errorMessage];
 
   factory TransactionError.fromJson(Map<String, dynamic> json) =>
-      _$TransactionErrorFromJson(json);
+      TransactionError(
+        errorCode: json['errorCode'] as int,
+        errorMessage: json['errorMessage'] as String,
+      );
 
-  Map<String, dynamic> toJson() => _$TransactionErrorToJson(this);
+  Map<String, dynamic> toJson() => {
+        'errorCode': errorCode,
+        'errorMessage': errorMessage,
+      };
 }
