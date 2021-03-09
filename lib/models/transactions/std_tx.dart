@@ -1,14 +1,15 @@
 import 'dart:convert';
 
+import 'package:equatable/equatable.dart';
 import 'package:sacco/models/transactions/export.dart';
 
-class StdTx {
+class StdTx extends Equatable {
   final List<StdMsg> messages;
   final List<StdSignature>? signatures;
   final StdFee fee;
   final String memo;
 
-  StdTx({
+  const StdTx({
     required this.messages,
     required this.fee,
     required this.memo,
@@ -28,4 +29,7 @@ class StdTx {
     final tx = {'type': 'cosmos-sdk/StdTx', 'value': toJson()};
     return jsonEncode(tx);
   }
+
+  @override
+  List<Object?> get props => [messages, signatures, fee, memo];
 }

@@ -1,6 +1,7 @@
+import 'package:equatable/equatable.dart';
 import 'package:sacco/models/transactions/export.dart';
 
-class StdSignature {
+class StdSignature extends Equatable {
   final StdPublicKey publicKey;
   final String value;
 
@@ -10,4 +11,7 @@ class StdSignature {
         'pub_key': publicKey,
         'signature': value,
       };
+
+  @override
+  List<Object?> get props => [publicKey, value];
 }

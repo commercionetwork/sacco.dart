@@ -1,4 +1,6 @@
-class StdPublicKey {
+import 'package:equatable/equatable.dart';
+
+class StdPublicKey extends Equatable {
   final String type;
   final String value;
 
@@ -11,4 +13,7 @@ class StdPublicKey {
         'type': type,
         'value': value,
       };
+
+  @override
+  List<Object?> get props => [type, value];
 }

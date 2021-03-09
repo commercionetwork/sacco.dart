@@ -7,7 +7,7 @@ import 'package:sacco/tx_builder.dart';
 
 void main() {
   test('StdTx is built correctly', () {
-    final message = StdMsg(
+    const message = StdMsg(
       type: 'cosmos-sdk/MsgSend',
       value: {
         'from_address': 'cosmos1huydeevpz37sd9snkgul6070mstupukw00xkw9',

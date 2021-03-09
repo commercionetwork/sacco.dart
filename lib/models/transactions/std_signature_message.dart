@@ -1,4 +1,6 @@
-class StdSignatureMessage {
+import 'package:equatable/equatable.dart';
+
+class StdSignatureMessage extends Equatable {
   final String chainId;
   final String accountNumber;
   final String sequence;
@@ -23,4 +25,14 @@ class StdSignatureMessage {
         'fee': fee,
         'msgs': msgs,
       };
+
+  @override
+  List<Object?> get props => [
+        chainId,
+        accountNumber,
+        sequence,
+        memo,
+        fee,
+        msgs,
+      ];
 }

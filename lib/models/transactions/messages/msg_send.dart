@@ -28,4 +28,7 @@ class MsgSend extends StdMsg {
         'to_address': toAddress,
         'amount': amount.map((coin) => coin.toJson()).toList(),
       };
+
+  @override
+  List<Object?> get props => [type, value, fromAddress, toAddress, amount];
 }

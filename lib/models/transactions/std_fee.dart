@@ -1,6 +1,7 @@
+import 'package:equatable/equatable.dart';
 import 'package:sacco/models/transactions/std_coin.dart';
 
-class StdFee {
+class StdFee extends Equatable {
   final String gas;
   final List<StdCoin> amount;
 
@@ -10,4 +11,7 @@ class StdFee {
         'amount': amount.map((coin) => coin.toJson()).toList(),
         'gas': gas,
       };
+
+  @override
+  List<Object?> get props => [gas, amount];
 }

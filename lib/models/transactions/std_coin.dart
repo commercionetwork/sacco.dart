@@ -1,5 +1,7 @@
+import 'package:equatable/equatable.dart';
+
 /// Contains the data of a specific coin
-class StdCoin {
+class StdCoin extends Equatable {
   final String denom;
   final String amount;
 
@@ -14,4 +16,7 @@ class StdCoin {
         'denom': denom,
         'amount': amount,
       };
+
+  @override
+  List<Object?> get props => [denom, amount];
 }
