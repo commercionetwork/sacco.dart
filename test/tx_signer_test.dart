@@ -12,9 +12,9 @@ void main() {
 
   test('StdTx with fee is signed correctly', () async {
     // Create the network info
-    const networkInfo = NetworkInfo(
+    final networkInfo = NetworkInfo(
       bech32Hrp: 'cosmos',
-      lcdUrl: 'http://localhost:1317',
+      lcdUrl: Uri.parse('http://localhost:1317'),
     );
 
     // Build a transaction

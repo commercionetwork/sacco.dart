@@ -7,7 +7,10 @@ import 'package:sacco/sacco.dart';
 import 'package:test/test.dart';
 
 void main() {
-  const commercioNetworkInfo = NetworkInfo(bech32Hrp: 'did:com:', lcdUrl: '');
+  final commercioNetworkInfo = NetworkInfo(
+    bech32Hrp: 'did:com:',
+    lcdUrl: Uri.parse('http//uri.com'),
+  );
   final correctMnemonic = [
     'will',
     'hard',
@@ -34,7 +37,10 @@ void main() {
     'word',
     'man'
   ];
-  const networkInfo = NetworkInfo(bech32Hrp: 'cosmos', lcdUrl: '');
+  final networkInfo = NetworkInfo(
+    bech32Hrp: 'cosmos',
+    lcdUrl: Uri.parse('http//uri.com'),
+  );
 
   // Generated using the default 'derivation path'
   final testVectors1 = {

@@ -5,9 +5,9 @@ void main() async {
   // --- Creating a wallet
   // -----------------------------------
 
-  const networkInfo = NetworkInfo(
+  final networkInfo = NetworkInfo(
     bech32Hrp: 'did:com:',
-    lcdUrl: 'http://localhost:1317',
+    lcdUrl: Uri.parse('http://localhost:7123'),
   );
 
   const mnemonicString =
@@ -24,8 +24,11 @@ void main() async {
     value: {
       'from_address': wallet.bech32Address,
       'to_address': 'did:com:1lys5uu683wrmupn4zguz7f2gqw45qae98pzn3d',
-      'amount': [
-        {'denom': 'uatom', 'amount': '100'}
+      'amount': const [
+        {
+          'denom': 'uatom',
+          'amount': '100',
+        }
       ]
     },
   );
