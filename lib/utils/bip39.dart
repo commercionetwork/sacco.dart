@@ -1,11 +1,15 @@
 import 'dart:convert';
+import 'dart:math';
 import 'dart:typed_data';
 
+import 'package:convert/convert.dart';
 import 'package:pointycastle/export.dart';
 
 import 'bip39_wordlist.dart';
 
 class Bip39 {
+  static const int _SIZE_BYTE = 255;
+
   static bool validateMnemonic(String mnemonic) {
     try {
       mnemonicToEntropy(mnemonic);
@@ -13,6 +17,56 @@ class Bip39 {
       return false;
     }
     return true;
+  }
+
+  static Uint8List _randomBytes(int size) {
+    final rng = Random.secure();
+    final bytes = Uint8List(size);
+
+    for (var i = 0; i < size; i++) {
+      bytes[i] = rng.nextInt(_SIZE_BYTE);
+    }
+
+    return bytes;
+  }
+
+  static String generateMnemonic({int strength = 128}) {
+    assert(strength % 32 == 0);
+
+    final entropy = _randomBytes(strength ~/ 8);
+    return entropyToMnemonic(hex.encode(entropy));
+  }
+
+  static String entropyToMnemonic(String entropyString) {
+    final entropy = Uint8List.fromList(hex.decode(entropyString));
+
+    if (entropy.length < 16) {
+      throw ArgumentError('Invalid entropy');
+    }
+
+    if (entropy.length > 32) {
+      throw ArgumentError('Invalid entropy');
+    }
+
+    if (entropy.length % 4 != 0) {
+      throw ArgumentError('Invalid entropy');
+    }
+
+    final entropyBits = _bytesToBinary(entropy);
+    final checksumBits = _deriveChecksumBits(entropy);
+    final bits = entropyBits + checksumBits;
+    final regex = RegExp('.{1,11}', caseSensitive: false, multiLine: false);
+
+    final chunks = regex
+        .allMatches(bits)
+        .map((match) => match.group(0)!)
+        .toList(growable: false);
+
+    final words = chunks
+        .map((binary) => bip39_english_wordlist[_binaryToByte(binary)])
+        .join(' ');
+
+    return words;
   }
 
   /// Reference: https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki#from-mnemonic-to-seed
