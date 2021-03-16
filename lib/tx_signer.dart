@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:sacco/models/node_info.dart';
 import 'package:sacco/sacco.dart';
 import 'package:sacco/utils/export.dart';
 import 'package:http/http.dart' as http;
@@ -77,7 +78,7 @@ class TxSigner {
     final signatureData = wallet.signTxData(bytes);
 
     // Get the compressed Base64 public key
-    final pubKeyCompressed = wallet.ecPublicKey.Q.getEncoded(true);
+    final pubKeyCompressed = wallet.ecPublicKey.Q!.getEncoded(true);
 
     // Build the StdSignature
     return StdSignature(
