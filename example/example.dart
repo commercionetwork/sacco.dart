@@ -7,7 +7,7 @@ void main() async {
 
   final networkInfo = NetworkInfo(
     bech32Hrp: 'did:com:',
-    lcdUrl: Uri.parse('http://localhost:7123'),
+    lcdUrl: Uri.parse('http://localhost:1337'),
   );
 
   const mnemonicString =
