@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
+import 'package:sacco/models/node_info.dart';
 import 'package:sacco/sacco.dart';
 
 /// Allows to easily retrieve the data of an account based on the information
