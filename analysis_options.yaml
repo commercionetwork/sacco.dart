@@ -11,9 +11,6 @@ analyzer:
     - implicit-casts: false
     - implicit-dynamic: false
 
-  enable-experiment:
-    - non-nullable
-  
 linter:
   rules:
     - always_declare_return_types
