@@ -9,6 +9,7 @@ import 'package:sacco/utils/bech32_encoder.dart';
 import 'package:sacco/utils/big_int_big_endian.dart';
 import 'package:sacco/utils/bip32.dart';
 import 'package:sacco/utils/bip39.dart';
+import 'package:sacco/utils/ecc_secp256k1.dart';
 
 import 'utils/tx_signer.dart';
 
@@ -69,7 +70,7 @@ class Wallet extends Equatable {
         root.derivePath('$BASE_DERIVATION_PATH/$lastDerivationPathSegment');
 
     // Get the curve data
-    final secp256k1 = ECCurve_secp256k1();
+    final secp256k1 = ECCSecp256k1();
     final point = secp256k1.G;
 
     // Compute the curve point associated to the private key
@@ -118,15 +119,15 @@ class Wallet extends Equatable {
   /// Returns the associated [privateKey] as an [ECPrivateKey] instance.
   ECPrivateKey get _ecPrivateKey {
     final privateKeyInt = BigInt.parse(hex.encode(privateKey), radix: 16);
-    return ECPrivateKey(privateKeyInt, ECCurve_secp256k1());
+    return ECPrivateKey(privateKeyInt, ECCSecp256k1());
   }
 
   /// Returns the associated [publicKey] as an [ECPublicKey] instance.
   ECPublicKey get ecPublicKey {
-    final secp256k1 = ECCurve_secp256k1();
+    final secp256k1 = ECCSecp256k1();
     final point = secp256k1.G;
     final curvePoint = point * _ecPrivateKey.d;
-    return ECPublicKey(curvePoint, ECCurve_secp256k1());
+    return ECPublicKey(curvePoint, ECCSecp256k1());
   }
 
   /// Signs the given [data] using the associated [privateKey] and encodes
@@ -151,7 +152,7 @@ class Wallet extends Equatable {
   /// More details at
   /// https://github.com/web3j/web3j/blob/master/crypto/src/main/java/org/web3j/crypto/ECDSASignature.java#L27
   static ECSignature _toCanonicalised(ECSignature signature) {
-    final ECDomainParameters _params = ECCurve_secp256k1();
+    final ECDomainParameters _params = ECCSecp256k1();
     final _halfCurveOrder = _params.n >> 1;
     if (signature.s.compareTo(_halfCurveOrder) > 0) {
       final canonicalisedS = _params.n - signature.s;
