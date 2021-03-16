@@ -5,7 +5,7 @@ import 'package:pointycastle/digests/sha256.dart';
 import 'package:pointycastle/ecc/api.dart';
 import 'package:pointycastle/macs/hmac.dart';
 import 'package:pointycastle/signers/ecdsa_signer.dart';
-import 'package:pointycastle/src/utils.dart' as ptutils;
+import 'package:sacco/utils/big_int_big_endian.dart';
 
 /// Helper class used to sign a transaction.
 class TransactionSigner {
@@ -24,8 +24,9 @@ class TransactionSigner {
     final ecSignature =
         normalizedECDSASigner.generateSignature(message) as ECSignature;
 
-    final encR = ptutils.encodeBigInt(ecSignature.r);
-    final encS = ptutils.encodeBigInt(ecSignature.s);
+    const bigIntEndian = BigIntBigEndian();
+    final encR = bigIntEndian.encode(ecSignature.r);
+    final encS = bigIntEndian.encode(ecSignature.s);
 
     // TODO: should we emit only fixed-length signatures?
     /*if (encR.length == 31 && encS.length == 31) {
@@ -36,6 +37,9 @@ class TransactionSigner {
       ]);
     }*/
 
-    return ptutils.concatUint8List([encR, encS]);
+    return _concatUint8List([encR, encS]);
   }
+
+  static Uint8List _concatUint8List(Iterable<Uint8List> list) =>
+      Uint8List.fromList(list.expand((element) => element).toList());
 }

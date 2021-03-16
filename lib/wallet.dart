@@ -1,13 +1,13 @@
 import 'dart:math';
 import 'dart:typed_data';
 
-import 'package:bip32/bip32.dart' as bip32;
 import 'package:convert/convert.dart';
 import 'package:equatable/equatable.dart';
 import 'package:pointycastle/export.dart';
-import 'package:pointycastle/src/utils.dart' as pc_utils;
 import 'package:sacco/sacco.dart';
 import 'package:sacco/utils/bech32_encoder.dart';
+import 'package:sacco/utils/big_int_big_endian.dart';
+import 'package:sacco/utils/bip32.dart';
 import 'package:sacco/utils/bip39.dart';
 
 import 'utils/tx_signer.dart';
@@ -62,7 +62,7 @@ class Wallet extends Equatable {
 
     // Convert the mnemonic to a BIP32 instance
     final seed = Bip39.mnemonicToSeed(mnemonicString);
-    final root = bip32.BIP32.fromSeed(seed);
+    final root = Bip32.fromSeed(seed);
 
     // Get the node from the derivation path
     final derivedNode =
@@ -73,11 +73,11 @@ class Wallet extends Equatable {
     final point = secp256k1.G;
 
     // Compute the curve point associated to the private key
-    final bigInt = BigInt.parse(hex.encode(derivedNode.privateKey), radix: 16);
+    final bigInt = BigInt.parse(hex.encode(derivedNode.privateKey!), radix: 16);
     final curvePoint = point * bigInt;
 
     // Get the public key
-    final publicKeyBytes = curvePoint.getEncoded();
+    final publicKeyBytes = curvePoint!.getEncoded();
 
     // Get the address
     final sha256Digest = SHA256Digest().process(publicKeyBytes);
@@ -87,7 +87,7 @@ class Wallet extends Equatable {
     return Wallet(
       address: address,
       publicKey: publicKeyBytes,
-      privateKey: derivedNode.privateKey,
+      privateKey: derivedNode.privateKey!,
       networkInfo: networkInfo,
     );
   }
@@ -172,10 +172,11 @@ class Wallet extends Equatable {
           ));
     final ecSignature =
         _toCanonicalised(ecdsaSigner.generateSignature(data) as ECSignature);
-    final sigBytes = Uint8List.fromList(
-      pc_utils.encodeBigInt(ecSignature.r) +
-          pc_utils.encodeBigInt(ecSignature.s),
-    );
+
+    const bigIntEndian = BigIntBigEndian();
+    final sigBytes = Uint8List.fromList(bigIntEndian.encode(ecSignature.r) +
+        bigIntEndian.encode(ecSignature.s));
+
     return sigBytes;
   }
 
