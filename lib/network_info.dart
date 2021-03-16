@@ -27,16 +27,21 @@ class NetworkInfo extends Equatable {
   });
 
   @override
-  List<Object?> get props =>
-      [bech32Hrp, lcdUrl, name, iconUrl, defaultTokenDenom];
+  List<Object?> get props => [
+        bech32Hrp,
+        lcdUrl,
+        name,
+        iconUrl,
+        defaultTokenDenom,
+      ];
 
   factory NetworkInfo.fromJson(Map<String, dynamic> json) {
     return NetworkInfo(
       bech32Hrp: json['bech32_hrp'] as String,
       lcdUrl: Uri.parse(json['lcd_url'] as String),
-      name: json['name'] as String,
-      iconUrl: json['icon_url'] as String,
-      defaultTokenDenom: json['default_token_denom'] as String,
+      name: json.containsKey('name') ? json['name'] as String : '',
+      iconUrl: json.containsKey('icon_url') ? json['icon_url'] as String : '',
+      defaultTokenDenom: json['default_token_denom'] as String?,
     );
   }
 
