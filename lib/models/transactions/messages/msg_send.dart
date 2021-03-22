@@ -1,4 +1,3 @@
-import 'package:meta/meta.dart';
 import 'package:sacco/models/transactions/export.dart';
 
 /// [MsgSend] extends [StdMsg] and represents the message that should be
@@ -18,18 +17,18 @@ class MsgSend extends StdMsg {
 
   /// Public constructor.
   MsgSend({
-    @required this.fromAddress,
-    @required this.toAddress,
-    @required this.amount,
-  })  : assert(fromAddress != null),
-        assert(toAddress != null),
-        assert(amount != null),
-        super(type: "cosmos-sdk/MsgSend", value: Map());
+    required this.fromAddress,
+    required this.toAddress,
+    required this.amount,
+  }) : super(type: 'cosmos-sdk/MsgSend', value: {});
 
   @override
   Map<String, dynamic> get value => {
-        'from_address': this.fromAddress,
-        'to_address': this.toAddress,
-        'amount': this.amount.map((coin) => coin.toJson()).toList(),
+        'from_address': fromAddress,
+        'to_address': toAddress,
+        'amount': amount.map((coin) => coin.toJson()).toList(),
       };
+
+  @override
+  List<Object?> get props => [type, value, fromAddress, toAddress, amount];
 }

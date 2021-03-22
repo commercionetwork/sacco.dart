@@ -1,18 +1,17 @@
-import 'package:meta/meta.dart';
+import 'package:equatable/equatable.dart';
 import 'package:sacco/models/transactions/export.dart';
 
-class StdSignature {
+class StdSignature extends Equatable {
   final StdPublicKey publicKey;
   final String value;
 
-  const StdSignature({
-    @required this.value,
-    @required this.publicKey,
-  })  : assert(value != null),
-        assert(publicKey != null);
+  const StdSignature({required this.value, required this.publicKey});
 
   Map<String, dynamic> toJson() => {
         'pub_key': publicKey,
         'signature': value,
       };
+
+  @override
+  List<Object?> get props => [publicKey, value];
 }

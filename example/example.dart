@@ -6,13 +6,13 @@ void main() async {
   // -----------------------------------
 
   final networkInfo = NetworkInfo(
-    bech32Hrp: "did:com:",
-    lcdUrl: "http://localhost:1317",
+    bech32Hrp: 'did:com:',
+    lcdUrl: Uri.parse('http://localhost:1337'),
   );
 
-  final mnemonicString =
-      "vivid favorite regular curve check word bubble echo disorder cute parade neck rib evidence option glimpse couple force angry section dizzy puppy express cream";
-  final mnemonic = mnemonicString.split(" ");
+  const mnemonicString =
+      'vivid favorite regular curve check word bubble echo disorder cute parade neck rib evidence option glimpse couple force angry section dizzy puppy express cream';
+  final mnemonic = mnemonicString.split(' ');
   final wallet = Wallet.derive(mnemonic, networkInfo);
 
   // -----------------------------------
@@ -20,12 +20,15 @@ void main() async {
   // -----------------------------------
 
   final message = StdMsg(
-    type: "cosmos-sdk/MsgSend",
+    type: 'cosmos-sdk/MsgSend',
     value: {
-      "from_address": wallet.bech32Address,
-      "to_address": "did:com:1lys5uu683wrmupn4zguz7f2gqw45qae98pzn3d",
-      "amount": [
-        {"denom": "uatom", "amount": "100"}
+      'from_address': wallet.bech32Address,
+      'to_address': 'did:com:1lys5uu683wrmupn4zguz7f2gqw45qae98pzn3d',
+      'amount': const [
+        {
+          'denom': 'uatom',
+          'amount': '100',
+        }
       ]
     },
   );
@@ -49,8 +52,8 @@ void main() async {
 
   // Check the result
   if (result.success) {
-    print("Tx send successfully. Hash: ${result.hash}");
+    print('Tx send successfully. Hash: ${result.hash}');
   } else {
-    print("Tx send error: ${result.error.errorMessage}");
+    print('Tx send error: ${result.error?.errorMessage}');
   }
 }

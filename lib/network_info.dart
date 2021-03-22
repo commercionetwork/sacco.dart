@@ -1,45 +1,55 @@
 import 'package:equatable/equatable.dart';
-import 'package:meta/meta.dart';
 
-/// Contains the information of a generic Cosmos-based network.
 class NetworkInfo extends Equatable {
-  final String bech32Hrp; // Bech32 human readable part
-  final String lcdUrl; // Url to call when accessing the LCD
+  /// Bech32 human readable part
+  final String bech32Hrp;
+
+  /// Url to call when accessing the LCD
+  final Uri lcdUrl;
 
   // Optional fields
-  final String name; // Human readable chain name
-  final String iconUrl; // Chain icon url
-  final String defaultTokenDenom;
+  /// Human readable chain name
+  final String name;
 
-  NetworkInfo({
-    @required this.bech32Hrp,
-    @required this.lcdUrl,
-    this.name = "",
-    this.iconUrl = "",
+  /// Chain icon url
+  final String iconUrl;
+
+  /// Default token denom
+  final String? defaultTokenDenom;
+
+  /// Contains the information of a generic Cosmos-based network.
+  const NetworkInfo({
+    required this.bech32Hrp,
+    required this.lcdUrl,
+    this.name = '',
+    this.iconUrl = '',
     this.defaultTokenDenom,
-  })  : assert(bech32Hrp != null),
-        assert(lcdUrl != null);
+  });
 
   @override
-  List<Object> get props {
-    return [bech32Hrp, lcdUrl, name, iconUrl, defaultTokenDenom];
-  }
+  List<Object?> get props => [
+        bech32Hrp,
+        lcdUrl,
+        name,
+        iconUrl,
+        defaultTokenDenom,
+      ];
 
   factory NetworkInfo.fromJson(Map<String, dynamic> json) {
     return NetworkInfo(
       bech32Hrp: json['bech32_hrp'] as String,
-      lcdUrl: json['lcd_url'] as String,
-      name: json['name'] as String,
-      iconUrl: json['icon_url'] as String,
-      defaultTokenDenom: json['default_token_denom'] as String,
+      lcdUrl: Uri.parse(json['lcd_url'] as String),
+      name: json.containsKey('name') ? json['name'] as String : '',
+      iconUrl: json.containsKey('icon_url') ? json['icon_url'] as String : '',
+      defaultTokenDenom: json['default_token_denom'] as String?,
     );
   }
 
   Map<String, dynamic> toJson() => <String, dynamic>{
-        'bech32_hrp': this.bech32Hrp,
-        'lcd_url': this.lcdUrl,
-        'name': this.name,
-        'icon_url': this.iconUrl,
-        'default_token_denom': this.defaultTokenDenom,
+        'bech32_hrp': bech32Hrp,
+        'lcd_url': lcdUrl.toString(),
+        'name': name,
+        'icon_url': iconUrl,
+        'default_token_denom': defaultTokenDenom,
       };
 }

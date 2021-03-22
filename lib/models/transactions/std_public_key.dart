@@ -1,17 +1,19 @@
-import 'package:meta/meta.dart';
+import 'package:equatable/equatable.dart';
 
-class StdPublicKey {
+class StdPublicKey extends Equatable {
   final String type;
   final String value;
 
   const StdPublicKey({
-    @required this.type,
-    @required this.value,
-  })  : assert(type != null),
-        assert(value != null);
+    required this.type,
+    required this.value,
+  });
 
   Map<String, dynamic> toJson() => {
         'type': type,
         'value': value,
       };
+
+  @override
+  List<Object?> get props => [type, value];
 }

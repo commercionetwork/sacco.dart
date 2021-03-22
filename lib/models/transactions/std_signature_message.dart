@@ -1,6 +1,6 @@
-import 'package:meta/meta.dart';
+import 'package:equatable/equatable.dart';
 
-class StdSignatureMessage {
+class StdSignatureMessage extends Equatable {
   final String chainId;
   final String accountNumber;
   final String sequence;
@@ -9,16 +9,13 @@ class StdSignatureMessage {
   final List<Map<String, dynamic>> msgs;
 
   const StdSignatureMessage({
-    @required this.chainId,
-    @required this.accountNumber,
-    @required this.sequence,
-    @required this.memo,
-    @required this.fee,
-    @required this.msgs,
-  })  : assert(chainId != null),
-        assert(accountNumber != null),
-        assert(sequence != null),
-        assert(msgs != null);
+    required this.chainId,
+    required this.accountNumber,
+    required this.sequence,
+    required this.memo,
+    required this.fee,
+    required this.msgs,
+  });
 
   Map<String, dynamic> toJson() => {
         'chain_id': chainId,
@@ -28,4 +25,14 @@ class StdSignatureMessage {
         'fee': fee,
         'msgs': msgs,
       };
+
+  @override
+  List<Object?> get props => [
+        chainId,
+        accountNumber,
+        sequence,
+        memo,
+        fee,
+        msgs,
+      ];
 }

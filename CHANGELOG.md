@@ -1,3 +1,8 @@
+## Version 0.2.0 - 2020-03-22
+* Dart null safety support
+* `NetworkInfo` now accepts a `Uri` parameter instead of a raw string
+* Now all the entities extend `Equatable`
+
 ## Version 0.1.5 - 2020-11-04
 * Updated bip32 dependencies  
 

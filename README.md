@@ -22,23 +22,27 @@ You can find the latest release of sacco.dart on [pub](https://pub.dev/packages/
 ## Usage 
 ### Creating a wallet
 ```dart
-final networkInfo = NetworkInfo(id: "", bech32Hrp: "cosmos", lcdUrl: "");
+final networkInfo = NetworkInfo(
+  bech32Hrp: 'cosmos',
+  lcdUrl: Uri.parse('http://localhost:1337'),
+);
 
-final mnemonicString = "final random flame cinnamon grunt hazard easily mutual resist pond solution define knife female tongue crime atom jaguar alert library best forum lesson rigid";
-final mnemonic = mnemonicString.split(" ");
-final wallet = Wallet.derive(mnemonic,  networkInfo);
+const mnemonicString = 'final random flame cinnamon grunt hazard easily mutual resist pond solution define knife female tongue crime atom jaguar alert library best forum lesson rigid';
+final mnemonic = mnemonicString.split(' ');
+
+final wallet = Wallet.derive(mnemonic, networkInfo);
 ```
 
 
 ### Creating a transaction
 ```dart
-final message = StdMsg(
-  type: "cosmos-sdk/MsgSend",
+const message = StdMsg(
+  type: 'cosmos-sdk/MsgSend',
   value: {
-    "from_address": "cosmos1huydeevpz37sd9snkgul6070mstupukw00xkw9",
-    "to_address": "cosmos12lla7fg3hjd2zj6uvf4pqj7atx273klc487c5k",
-    "amount": [
-      {"denom": "uatom", "amount": "100"}
+    'from_address': 'cosmos1huydeevpz37sd9snkgul6070mstupukw00xkw9',
+    'to_address': 'cosmos12lla7fg3hjd2zj6uvf4pqj7atx273klc487c5k',
+    'amount': [
+      {'denom': 'uatom', 'amount': '100'}
     ]
   },
 );
@@ -48,26 +52,29 @@ final stdTx = TxBuilder.buildStdTx(stdMsgs: [message]);
 
 ### Signing a transaction
 ```dart
-final signedStdTx = TxSigner.signStdTx(wallet: wallet, stdTx: stdTx);
+final signedStdTx = await TxSigner.signStdTx(wallet: wallet, stdTx: stdTx);
 ```
 
 ### Sending a transaction
 ```dart
 try {
-  final hash = await TxSender.broadcastStdTx(wallet: wallet, stdTx: signedStdTx);
-  print("Tx send successfully. Hash: $hash");
+  final txResult = await TxSender.broadcastStdTx(wallet: wallet, stdTx: signedStdTx);
+  print('Tx send successfully. Hash: ${txResult.hash}');
 } catch (error) {
-  print("Error while sending the tx: $error");
+  print('Error while sending the tx: $error');
 }
 ```
 
 ### Creating a wallet with different index of derivation path
 ```dart
-final derivationPathIndex = "1"; // Using index 1 instead 0
-final networkInfo = NetworkInfo(id: "", bech32Hrp: "cosmos", lcdUrl: "");
+const derivationPathIndex = '1'; // Using index 1 instead 0
+final networkInfo = NetworkInfo(
+  bech32Hrp: 'cosmos',
+  lcdUrl: Uri.parse('http://localhost:1337'),
+);
 
-final mnemonicString = "final random flame cinnamon grunt hazard easily mutual resist pond solution define knife female tongue crime atom jaguar alert library best forum lesson rigid";
-final mnemonic = mnemonicString.split(" ");
+const mnemonicString = 'final random flame cinnamon grunt hazard easily mutual resist pond solution define knife female tongue crime atom jaguar alert library best forum lesson rigid';
+final mnemonic = mnemonicString.split(' ');
+
 final wallet = Wallet.derive(mnemonic,  networkInfo, derivationPathIndex);
 ```
-

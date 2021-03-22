@@ -1,34 +1,35 @@
 import 'dart:convert';
 
-import 'package:meta/meta.dart';
+import 'package:equatable/equatable.dart';
 import 'package:sacco/models/transactions/export.dart';
 
-class StdTx {
+class StdTx extends Equatable {
   final List<StdMsg> messages;
-  final List<StdSignature> signatures;
+  final List<StdSignature>? signatures;
   final StdFee fee;
   final String memo;
 
-  StdTx({
-    @required this.messages,
-    @required this.signatures,
-    @required this.fee,
-    @required this.memo,
-  })  : assert(messages != null),
-        assert(signatures == null || signatures.isNotEmpty),
-        assert(fee != null);
+  const StdTx({
+    required this.messages,
+    required this.fee,
+    required this.memo,
+    this.signatures,
+  });
 
   Map<String, dynamic> toJson() => {
-        'msg': this.messages.map((message) => message.toJson()).toList(),
-        'fee': this.fee.toJson(),
+        'msg': messages.map((message) => message.toJson()).toList(),
+        'fee': fee.toJson(),
         'signatures':
-            this.signatures?.map((signature) => signature.toJson())?.toList(),
-        'memo': this.memo,
+            signatures?.map((signature) => signature.toJson()).toList(),
+        'memo': memo,
       };
 
   @override
   String toString() {
-    final tx = {"type": "cosmos-sdk/StdTx", "value": toJson()};
+    final tx = {'type': 'cosmos-sdk/StdTx', 'value': toJson()};
     return jsonEncode(tx);
   }
+
+  @override
+  List<Object?> get props => [messages, signatures, fee, memo];
 }
