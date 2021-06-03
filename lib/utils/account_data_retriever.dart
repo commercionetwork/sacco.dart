@@ -8,14 +8,14 @@ import 'package:sacco/sacco.dart';
 class AccountDataRetrieval {
   /// Reads the account endpoint and retrieves data from it.
   static Future<AccountData> getAccountData(
-    Wallet wallet, {
-    http.Client? client,
-  }) async {
+      Wallet wallet, {
+        http.Client? client,
+      }) async {
     client ??= http.Client();
 
     // Build the models.wallet api url
     final endpoint = Uri.parse(
-        '${wallet.networkInfo.lcdUrl}/auth/accounts/${wallet.bech32Address}');
+        '${wallet.networkInfo.lcdUrl}/cosmos/auth/v1beta1/accounts/${wallet.bech32Address}');
 
     // Get the server response
     final response = await client.get(endpoint);
@@ -27,11 +27,8 @@ class AccountDataRetrieval {
 
     // Parse the data
     var json = jsonDecode(response.body) as Map<String, dynamic>;
-    if (json.containsKey('result')) {
-      json = json['result'];
-    }
 
-    final value = json['value'] as Map<String, dynamic>;
+    final value = json['account'] as Map<String, dynamic>;
 
     final accountNumber = value['account_number'] is String
         ? value['account_number']
