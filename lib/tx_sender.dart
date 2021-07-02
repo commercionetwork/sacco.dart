@@ -19,7 +19,7 @@ class TxSender {
     client ??= http.Client();
 
     // Get the endpoint
-    final apiUrl = Uri.parse('${wallet.networkInfo.lcdUrl}/txs');
+    final apiUrl = Uri.parse('${wallet.networkInfo.lcdUrl}/cosmos/tx/v1beta1/txs');
 
     // Build the request body
     final requestBody = {'tx': stdTx.toJson(), 'mode': mode};
