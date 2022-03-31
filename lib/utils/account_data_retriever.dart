@@ -34,10 +34,10 @@ class AccountDataRetrieval {
     final value = json['value'] as Map<String, dynamic>;
 
     // Get the coins
-    final coins = (value['coins'] as List)
+    /*final coins = (value['coins'] as List)
         .map((coinMap) => StdCoin.fromJson(coinMap))
-        .toList();
-
+        .toList();*/
+    final coins = null;
     final accountNumber = value['account_number'] is String
         ? value['account_number']
         : value['account_number'].toString();
